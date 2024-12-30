@@ -23,6 +23,8 @@
           :mapZoom="6"
           ></TutorialCard>
 
+          <MapPMTiles></MapPMTiles>
+
           </v-col>
           <v-spacer></v-spacer>
         </v-row>
@@ -31,8 +33,7 @@
     <!-- FOOTER -->
     <v-footer>
       <p class="footer-item">
-        {{ currentYear }}. 
-        Some footer info.
+        {{ currentYear }}. MIT License.
       </p>
     </v-footer>
   </v-app>
@@ -40,6 +41,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import MapPMTiles from './components/MapPmTiles.vue';
 
 const currentYear = computed(() => {
   return (new Date()).getFullYear();
