@@ -12,7 +12,7 @@
             no-gutters
           >
           <h1>GeoViz</h1>
-          <h2>This is a barebone, placeholder page.</h2>
+          <h2>This is a barebone, placeholder page that will soon change.</h2>
           </v-col>
           <v-spacer></v-spacer>
         </v-row>

@@ -9,12 +9,15 @@
     "preview": "vite preview",
     "watch": "vite build --watch",
     "lint": "eslint .",
+    "deploy": "vite build && gh-pages -d docs -b main -r https://github.com/janmanuelwinkler/geoviz.git --dest docs",
     "typecheck": "vue-tsc --noEmit",
     "up": "taze major -I"
   },
   "dependencies": {
+    "@indoorequal/vue-maplibre-gl": "^7.7.1",
     "@mdi/font": "^7.4.47",
     "@vueuse/core": "^10.9.0",
+    "maplibre-gl": "^4.7.1",
     "roboto-fontface": "*",
     "vue": "^3.4.21",
     "vue-router": "^4.3.2",
