@@ -12,7 +12,17 @@
             no-gutters
           >
           <h1>GeoViz</h1>
-          <h2>This is a barebone, placeholder page that will soon change.</h2>
+          <h2>A collection of tutorials on how to display vector and raster Tiles on the web.</h2>
+          
+          <TutorialCard
+          title="Display a simple map"
+          subtitle="We are going to use vue-maplibre-gl to display a simple map."
+          mapStyle="https://demotiles.maplibre.org/style.json"
+          :mapCenterLng="8.52364435868436"
+          :mapCenterLat="47.37771305255045"
+          :mapZoom="6"
+          ></TutorialCard>
+
           </v-col>
           <v-spacer></v-spacer>
         </v-row>
@@ -30,9 +40,6 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-
-// the following variables are read from static json. 
-// in a non-static website, these would be returned by some sort of backedn
 
 const currentYear = computed(() => {
   return (new Date()).getFullYear();
