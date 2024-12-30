@@ -1,0 +1,55 @@
+{
+  "name": "GeoViz",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 3333 --open",
+    "build": "vite build",
+    "preview": "vite preview",
+    "watch": "vite build --watch",
+    "lint": "eslint .",
+    "typecheck": "vue-tsc --noEmit",
+    "up": "taze major -I"
+  },
+  "dependencies": {
+    "@mdi/font": "^7.4.47",
+    "@vueuse/core": "^10.9.0",
+    "roboto-fontface": "*",
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.2",
+    "vuetify": "^3.6.6"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "babel-polyfill": "^6.26.0",
+    "eslint": "^9.3.0",
+    "eslint-config": "^0.3.0",
+    "eslint-plugin-format": "^0.1.1",
+    "eslint-plugin-vue": "^9.26.0",
+    "gh-pages": "^6.1.1",
+    "globals": "^15.4.0",
+    "lint-staged": "^15.2.2",
+    "sass": "^1.77.2",
+    "sass-loader": "^14.2.1",
+    "simple-git-hooks": "^2.11.1",
+    "taze": "^0.13.8",
+    "typescript": "^5.2.2",
+    "typescript-eslint": "^7.12.0",
+    "unplugin-auto-import": "^0.17.6",
+    "unplugin-vue-components": "^0.27.0",
+    "unplugin-vue-macros": "^2.9.2",
+    "unplugin-vue-router": "^0.8.6",
+    "vite": "^5.2.0",
+    "vite-plugin-vuetify": "^2.0.3",
+    "vitest": "^1.6.0",
+    "vue-tsc": "^2.0.6"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
+}

@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css?family=Inter|Source+Sans+Pro|Source+Sans+3|Inconsolata|Oswald');
+
+$font-family: Inter, Source Sans Pro, Inconsolata, Helvetica, Arial, sans-serif, system-ui, Oswald;
+
+.v-application {
+  font-family: $font-family !important;
+}
+
+.v-application {
+  .text-h1,
+  .text-h2,
+  .text-h3,
+  .text-h4,
+  .text-h5,
+  .text-h6,
+  .text-subtitle-1,
+  .text-subtitle-2,
+  .text-body-1, 
+  .text-body-2,
+  .text-button,
+  .text-caption,
+  .text-high-emphasis,
+  .text-medium-emphasis,
+  .text-disabled,
+  .text-uppercase,
+  .text-lowercase,
+  .text-capitalize,
+  .text-start,
+  .text-center,
+  .text-end,
+  .text-justify,
+  .text-left,
+  .text-right,
+  .text-truncate,
+  .text-no-wrap,
+  .text-break,
+  .text-decoration-none,
+  .text-decoration-overline,
+  .text-decoration-underline,
+  .text-decoration-line-through,
+  .font-weight-black,
+  .font-weight-bold,
+  .font-weight-medium,
+  .font-weight-regular,
+  .font-weight-light,
+  .font-weight-thin,
+  .font-italic,
+  .text-display-1,
+  .text-display-2,
+  .text-display-3,
+  .text-display-4,
+  .text-headline,
+  .text-title,
+  .text-overline {
+    font-family: $font-family !important;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
