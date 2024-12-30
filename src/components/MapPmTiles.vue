@@ -1,5 +1,7 @@
 <template>
-    <div id="map" class="map-container"></div>
+    <v-container fluid>
+      <div id="map" class="map-container"></div>
+    </v-container>  
 </template>
 
 <script setup>
@@ -8,8 +10,9 @@ import 'maplibre-gl/dist/maplibre-gl.css'
 import maplibregl from 'maplibre-gl'
 import { Protocol, PMTiles } from 'pmtiles'
 
+
 onMounted(async () => {
-  // create a protocol and a soutce to it
+  // create a protocol and a source to it
   const protocol = new Protocol()
   maplibregl.addProtocol('pmtiles', protocol.tile)
   const PMTILES_URL = 'https://pmtiles.io/protomaps(vector)ODbL_firenze.pmtiles'
@@ -63,14 +66,17 @@ onMounted(async () => {
       ]
     }
   })
+  map.addControl(new maplibregl.NavigationControl(), 'top-right')
 })
 </script>
 
 <style scoped>
 
 .map-container {
- width: 100%;
- height: 100%;
+ width: 80%;
+ height: 500px;
+ margin-left: auto;
+ margin-right: auto;
 }
 
 </style>

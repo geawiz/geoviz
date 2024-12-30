@@ -23,8 +23,15 @@
           :mapZoom="6"
           ></TutorialCard>
 
-          <MapPMTiles></MapPMTiles>
-
+          <TutorialPmTilesCard
+          title="Display a PM tiles map"
+          subtitle="We are going to use the native maplibre-gl to display a map from a PM Tiles."
+          mapStyle="https://demotiles.maplibre.org/style.json"
+          :mapCenterLng="8.52364435868436"
+          :mapCenterLat="47.37771305255045"
+          :mapZoom="6"
+          ></TutorialPmTilesCard>
+          
           </v-col>
           <v-spacer></v-spacer>
         </v-row>
