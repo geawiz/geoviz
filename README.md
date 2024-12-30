@@ -13,8 +13,13 @@ This website is built using [Vue 3](https://vuejs.org), TypeScript and [Vite](ht
 ## How to develop and build
 First run ``pnpn install`` to install all dependencies required to build.
 
-Then use one of the following scripts:
-- ``npm run dev``: serves a development version of this website.
-- ``npm run build``: builds the static website in a subfolder called ``dist``.
-- ``npm run preview``": previews what gets build at previous step -- on a localhost server.
-- ``npm run deploy``: deploys the static website to the specified github page and folder. This page only checks in the ``docs`` folder, so you will have to commit any changes you'll have elsewhere in the repo.
+Then to develop run:
+``npm run dev``
+(or clikc theplay icon in the NPM SCRIPT panel on the left side of VSCode)
+which serves a development version of this website. So you can use hot-reloading and make changes on the fly.
+
+Finally, when happy, run 
+``npm run build``
+which builds the static website in a subfolder called ``docs``.
+
+In the end, commit all change. If oyu also commit the 'docs' folder, this will change the live website to the latest built version. 
