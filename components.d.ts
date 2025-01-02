@@ -7,12 +7,9 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    _MapPMTiles: typeof import('./src/components/_MapPMTiles.vue')['default']
     AppBar: typeof import('./src/components/AppBar.vue')['default']
     Map: typeof import('./src/components/Map.vue')['default']
     MapPmTiles: typeof import('./src/components/MapPmTiles.vue')['default']
-    MapPMTiles: typeof import('./src/components/MapPMTiles.vue')['default']
-    MapPmTiles2: typeof import('./src/components/MapPmTiles2.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TutorialCard: typeof import('./src/components/TutorialCard.vue')['default']

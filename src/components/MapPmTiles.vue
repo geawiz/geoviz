@@ -38,10 +38,11 @@ onMounted(async () => {
         {
           id: 'gdf_gemeinden',
           source: 'example_source',
-          'source-layer': 'landuse',
+          'source-layer': 'gdf_gemeinden',
           type: 'fill',
           paint: {
-            'fill-color': 'steelblue'
+            'fill-color': 'steelblue',
+            'fill-outline-color': 'white'
           }
         }
       ]
