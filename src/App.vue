@@ -23,6 +23,15 @@
           :mapZoom="6"
           ></TutorialCard>
 
+          <TutorialPmTilesCard
+          title="Display a PM tiles map"
+          subtitle="We are going to use the native maplibre-gl to display a map from a PM Tiles."
+          mapStyle="https://demotiles.maplibre.org/style.json"
+          :mapCenterLng="6.591797"
+          :mapCenterLat="46.619227"
+          :mapZoom="9"
+          ></TutorialPmTilesCard>
+
           </v-col>
           <v-spacer></v-spacer>
         </v-row>
@@ -31,8 +40,7 @@
     <!-- FOOTER -->
     <v-footer>
       <p class="footer-item">
-        {{ currentYear }}. 
-        Some footer info.
+        {{ currentYear }}. MIT License.
       </p>
     </v-footer>
   </v-app>
@@ -40,6 +48,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import MapPMTiles from './components/MapPmTiles.vue';
 
 const currentYear = computed(() => {
   return (new Date()).getFullYear();

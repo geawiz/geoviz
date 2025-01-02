@@ -23,3 +23,4 @@ Finally, when happy, run
 which builds the static website in a subfolder called ``docs``.
 
 In the end, commit all change. If oyu also commit the 'docs' folder, this will change the live website to the latest built version. 
+ 

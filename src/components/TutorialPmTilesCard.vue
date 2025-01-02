@@ -8,12 +8,7 @@
         {{ subtitle }}
       </v-card-subtitle>
       <v-card-text>
-        <Map
-        :style="mapStyle"
-        :Lng="mapCenterLng"
-        :Lat="mapCenterLat"
-        :zoom="mapZoom"
-        ></Map>
+        <MapPmTiles/>
       </v-card-text>
     </v-card>
 </v-container>  
@@ -23,12 +18,7 @@
 
 const props = defineProps({
   title: String,
-  subtitle: String,
-  mapStyle: String,
-  mapCenterLng: Number,
-  mapCenterLat: Number,
-  mapZoom: Number
+  subtitle: String
 })
 
 </script>
-
