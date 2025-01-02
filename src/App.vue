@@ -29,7 +29,7 @@
           mapStyle="https://demotiles.maplibre.org/style.json"
           :mapCenterLng="6.591797"
           :mapCenterLat="46.619227"
-          :mapZoom="9"
+          :mapZoom="8"
           ></TutorialPmTilesCard>
 
           </v-col>

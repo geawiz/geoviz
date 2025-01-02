@@ -23,7 +23,7 @@ onMounted(async () => {
   // create the map obkect, bind it to the 'map' div in the template
   const map = new maplibregl.Map({
     container: 'map',
-    zoom: header.maxZoom - 2,
+    zoom: header.maxZoom - 3,
     center: [header.centerLon, header.centerLat],
     style: {
       version: 8,
