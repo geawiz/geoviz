@@ -25,30 +25,33 @@ onMounted(async () => {
     container: 'map',
     zoom: header.maxZoom - 3,
     center: [header.centerLon, header.centerLat],
-    style: {
-      version: 8,
-      sources: {
-        'example_source': {
-          type: 'vector',
-          url: `pmtiles://${PMTILES_URL}`,
-        }
-      },
-      // define the layers style
-      layers: [
-        {
-          id: 'gdf_gemeinden',
-          source: 'example_source',
-          'source-layer': 'gdf_gemeinden',
-          type: 'fill',
-          paint: {
-            'fill-color': 'steelblue',
-            'fill-outline-color': 'white'
-          }
-        }
-      ]
-    }
+    style: "https://demotiles.maplibre.org/style.json"
   })
   map.addControl(new maplibregl.NavigationControl(), 'top-right')
+
+  map.on('load', () => {
+      // 2a. Add a new source (vector or raster) 
+      // Example: a vector tileset
+      map.addSource('swiss_gemeinden', {
+        type: 'vector',
+        url: `pmtiles://${PMTILES_URL}`,
+      });
+
+      // 2b. Add a layer referencing the new source
+      // Make sure the 'source-layer' matches the layer name inside the tile set if vector
+      map.addLayer({
+        id: 'gdf_gemeinden',
+        source: 'swiss_gemeinden',
+        'source-layer': 'gdf_gemeinden', 
+        type: 'fill',            // or line, symbol, circle, etc.
+        paint: {
+          'fill-color': 'steelblue',
+          'fill-outline-color': 'white',
+          'fill-opacity': 0.5
+        }
+      });
+    });
+
 })
 </script>
 
