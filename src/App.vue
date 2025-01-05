@@ -27,9 +27,6 @@
           title="Display a PM tiles map"
           subtitle="We are going to use the native maplibre-gl to display a map from a PM Tiles."
           mapStyle="https://demotiles.maplibre.org/style.json"
-          :mapCenterLng="6.591797"
-          :mapCenterLat="46.619227"
-          :mapZoom="8"
           ></TutorialPmTilesCard>
 
           </v-col>
