@@ -16,13 +16,8 @@
           
           <div v-for="(tutorial, i) in tutorials" :key="i">
             <TutorialCard
-              v-if="tutorial.protocol==='simple'"
               :tutorial="tutorial"
             ></TutorialCard>
-            <TutorialPmTilesCard
-              v-else
-              :tutorial="tutorial"
-            ></TutorialPmTilesCard>
           </div>
           </v-col>
           <v-spacer></v-spacer>
@@ -39,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed } from 'vue'
 import { Tutorials } from '@/classes/tutorial.ts'
 import jsonTutorials from '@/assets/tutorials.json'
 
@@ -51,12 +46,6 @@ const tutorials = computed(() => {
   var jsonString = JSON.stringify(jsonTutorials);
   var tut:Tutorials = JSON.parse(jsonString);
   return tut;
-})
-
-onMounted(() => {
-  tutorials.value.forEach(tutorial => {
-    console.log(tutorial)
-  });
 })
 
 </script>

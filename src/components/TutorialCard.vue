@@ -9,11 +9,14 @@
       </v-card-subtitle>
       <v-card-text>
         <Map
+        v-if="tutorial?.protocol === 'simple'"
         :style="tutorial?.protocolData"
-        :Lng="tutorial?.maps[0].centerLng"
-        :Lat="tutorial?.maps[0].centerLat"
-        :zoom="tutorial?.maps[0].zoom"
+        :map="tutorial?.maps"
         ></Map>
+        <MapPmTiles
+        v-else
+        :map="tutorial?.maps"
+        ></MapPmTiles>
       </v-card-text>
     </v-card>
 </v-container>  

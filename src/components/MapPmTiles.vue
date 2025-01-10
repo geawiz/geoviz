@@ -4,13 +4,18 @@
   </v-container>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onMounted } from 'vue'
-import 'maplibre-gl/dist/maplibre-gl.css'
+import type { PropType } from 'vue'
+import { Map } from '@/classes/tutorial.ts'
 import maplibregl from 'maplibre-gl'
 import { Protocol, PMTiles } from 'pmtiles'
 import { cogProtocol } from '@geomatico/maplibre-cog-protocol'
+import 'maplibre-gl/dist/maplibre-gl.css'
 
+const props = defineProps({
+  map: Object as PropType<Map>
+})
 
 onMounted(async () => {
   // create a protocol and a source to it
@@ -34,7 +39,7 @@ onMounted(async () => {
   map.addControl(new maplibregl.NavigationControl(), 'top-right')
 
   map.on('load', () => {
-    
+
     map.addSource('swiss_gemeinden', {
       type: 'vector',
       url: `pmtiles://${PMTILES_URL}`,
