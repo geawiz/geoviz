@@ -1,0 +1,100 @@
+[
+  {
+    "title": "Display a simple map",
+    "subtitle": "We are going to use vue-maplibre-gl to display a simple map.",
+    "protocol": "simple",
+    "protocolData": "https://demotiles.maplibre.org/style.json",
+    "maps" : [
+      {
+        "centerLng": 8.52364435868436,
+        "centerLat": 47.37771305255045,
+        "zoom": 6,
+        "source": {
+          "name": "",
+          "type": "",
+          "url": ""
+        },
+        "layer": {
+          "id": "",
+          "source": "",
+          "sourceLayer": "",
+          "type": "",
+          "paint": {
+            "fillColor": "",
+            "fillCutlineColor": "",
+            "fillOpacity": 0
+          }
+        }
+      }
+    ]
+  },
+  {
+    "title": "Display a PM tiles map",
+    "subtitle": "We are going to use the native maplibre-gl to display a map from a PM Tiles.",
+    "protocol": "pmtiles",
+    "protocolData": "https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles",
+    "maps" : [
+      {
+        "source": {
+          "name": "swiss_gemeinden",
+          "type": "vector",
+          "url": "pmtiles://https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles"
+        },
+        "layer": {
+          "id": "gdf_gemeinden",
+          "source": "swiss_gemeinden",
+          "sourceLayer": "gdf_gemeinden",
+          "type": "fill",
+          "paint": {
+            "fillColor": "steelblue",
+            "fillCutlineColor": "white",
+            "fillOpacity": 0.3
+          }
+        }
+      }
+    ]
+  },
+  {
+    "title": "Display a COG tiff map",
+    "subtitle": "We are going to use the native maplibre-gl to display a map from a TIFF map and the COG protocol.",
+    "protocol": "cog",
+    "protocolData": "",
+    "maps" : [
+      {
+        "source": {
+          "name": "swiss_gemeinden",
+          "type": "vector",
+          "url": "pmtiles://https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles"
+        },
+        "layer": {
+          "id": "gdf_gemeinden",
+          "source": "swiss_gemeinden",
+          "sourceLayer": "gdf_gemeinden",
+          "type": "fill",
+          "paint": {
+            "fillColor": "steelblue",
+            "fillCutlineColor": "white",
+            "fillOpacity": 0.3
+          }
+        }
+      },
+      {
+        "source": {
+          "name": "imageSource",
+          "type": "raster",
+          "url": "cog://https://geovizbucket.s3.us-west-2.amazonaws.com/output_cog_small_jpeg.tif",
+          "tileSize": 512,
+          "minzoom": 5,
+          "maxzoom": 20
+        },
+        "layer": {
+          "id": "imageLayer",
+          "source": "imageSource",
+          "sourceLayer": "",
+          "type": "raster",
+          "paint": {}
+        }
+      }
+    ]
+  }
+]

@@ -34,6 +34,7 @@ onMounted(async () => {
   map.addControl(new maplibregl.NavigationControl(), 'top-right')
 
   map.on('load', () => {
+    
     map.addSource('swiss_gemeinden', {
       type: 'vector',
       url: `pmtiles://${PMTILES_URL}`,

@@ -14,21 +14,16 @@
           <h1>GeoViz</h1>
           <h2>A collection of tutorials on how to display vector and raster Tiles on the web.</h2>
           
-          <TutorialCard
-          title="Display a simple map"
-          subtitle="We are going to use vue-maplibre-gl to display a simple map."
-          mapStyle="https://demotiles.maplibre.org/style.json"
-          :mapCenterLng="8.52364435868436"
-          :mapCenterLat="47.37771305255045"
-          :mapZoom="6"
-          ></TutorialCard>
-
-          <TutorialPmTilesCard
-          title="Display a PM tiles map"
-          subtitle="We are going to use the native maplibre-gl to display a map from a PM Tiles."
-          mapStyle="https://demotiles.maplibre.org/style.json"
-          ></TutorialPmTilesCard>
-
+          <div v-for="(tutorial, i) in tutorials" :key="i">
+            <TutorialCard
+              v-if="tutorial.protocol==='simple'"
+              :tutorial="tutorial"
+            ></TutorialCard>
+            <TutorialPmTilesCard
+              v-else
+              :tutorial="tutorial"
+            ></TutorialPmTilesCard>
+          </div>
           </v-col>
           <v-spacer></v-spacer>
         </v-row>
@@ -44,11 +39,24 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import MapPMTiles from './components/MapPmTiles.vue';
+import { computed, onMounted } from 'vue'
+import { Tutorials } from '@/classes/tutorial.ts'
+import jsonTutorials from '@/assets/tutorials.json'
 
 const currentYear = computed(() => {
   return (new Date()).getFullYear();
+})
+
+const tutorials = computed(() => {
+  var jsonString = JSON.stringify(jsonTutorials);
+  var tut:Tutorials = JSON.parse(jsonString);
+  return tut;
+})
+
+onMounted(() => {
+  tutorials.value.forEach(tutorial => {
+    console.log(tutorial)
+  });
 })
 
 </script>
