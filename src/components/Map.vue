@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
   <mgl-map
-    :map-style="style"
+    :map-style="map?.protocolData"
     :center="[lng??0, lat??0]"
     :zoom="map?.zoom"
     height="500px"
@@ -21,16 +21,16 @@ import {
 import { Map } from '@/classes/tutorial.ts'
 
 const props = defineProps({
-  style: String,
   map: Object as PropType<Map>
 })
 
 const lng = computed(() => {
-  return props.map !== undefined ? props.map.centerLng : 0
+  const val =  props.map != undefined ? props.map.centerLng : 0
+  return val
 })
 
 const lat = computed(() => {
-  return props.map !== undefined ? props.map.centerLat : 0
+  return props.map != undefined ? props.map.centerLat : 0
 })
 
 </script>

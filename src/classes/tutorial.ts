@@ -3,17 +3,18 @@ export type Tutorials = Tutorial[]
 export interface Tutorial {
   title: string
   subtitle: string
-  protocol: string
-  protocolData: string
+  mapType: string
   maps: Map[]
 }
 
 export interface Map {
+  protocol: string
+  protocolData?: string
   centerLng?: number
   centerLat?: number
   zoom?: number
-  source: Source
-  layer: Layer
+  source?: Source
+  layer?: Layer
 }
 
 export interface Source {
@@ -30,11 +31,11 @@ export interface Layer {
   source: string
   sourceLayer: string
   type: string
-  paint: Paint
+  paint?: Paint
 }
 
 export interface Paint {
-  fillColor?: string
-  fillCutlineColor?: string
-  fillOpacity?: number
+  fillColor: string
+  fillCutlineColor: string
+  fillOpacity: number
 }

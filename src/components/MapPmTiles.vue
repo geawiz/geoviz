@@ -9,8 +9,8 @@
       <v-list-item
         v-for="(map, i) in maps"
         :key="i"
-        :title="map?.layer.id"
-        :value="map?.layer.id"
+        :title="getLayerId(map.layer)"
+        :value="getLayerId(map.layer)"
       >
       <template v-slot:prepend="{ isSelected }">
         <v-list-item-action start>
@@ -25,7 +25,7 @@
 <script setup lang="ts">
 import { onMounted, ref, watch, computed } from 'vue'
 import type { PropType } from 'vue'
-import { Map } from '@/classes/tutorial.ts'
+import { Map, Layer } from '@/classes/tutorial.ts'
 import maplibregl from 'maplibre-gl'
 import { Protocol, PMTiles } from 'pmtiles'
 import { cogProtocol } from '@geomatico/maplibre-cog-protocol'
@@ -36,29 +36,37 @@ const props = defineProps({
   maps: Object as PropType<Map[]>
 })
 
+const settingsSelection = ref<string[]>([])
+const mapGl = ref<maplibregl.Map|null>(null);
+
 const divId = computed(() => {
   return "map_" + uuid()
 })
 
-const toggle = ref(false);
-const settingsSelection = ref<string[]>()
-const mapGl = ref<maplibregl.Map|null>(null);
+watch(settingsSelection, () => {
+  props.maps?.forEach(map => {
+    const layerId = getLayerId(map.layer)
+    const idx = settingsSelection.value?.findIndex((m) => m === layerId) ?? -1
+    toggleLayerVisibility(layerId, idx >=0)
+  });
+})
 
 onMounted(async () => {
   
-  //TODO: make this parametrize on the map object
-
-  // create a protocol and a source(s) to it
-  const protocol = new Protocol()
-
-  // add PM Tiles protocol
-  maplibregl.addProtocol('pmtiles', protocol.tile)
+  
   const PMTILES_URL = 'https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles'
-  const p = new PMTiles(PMTILES_URL)
-  protocol.add(p)
-
-  // add COG protocol
-  maplibregl.addProtocol('cog', cogProtocol)
+  var p:PMTiles|undefined = undefined
+  props.maps?.forEach(map => {
+    if(map.protocol==="pmtiles")
+    {
+      p = addPMTilesProtocol(map)
+    }
+    else if(map.protocol==="cog")
+    {
+      // add COG protocol
+      maplibregl.addProtocol('cog', cogProtocol)
+    }
+  });
 
   // create the map object, bind it to the 'map' div in the template
   mapGl.value = new maplibregl.Map({
@@ -70,16 +78,20 @@ onMounted(async () => {
   mapGl.value?.addControl(new maplibregl.NavigationControl(), 'top-right')
 
   // center the map
-  const header = await p.getHeader()
-  mapGl.value?.setZoom(header.maxZoom - 3)
-  mapGl.value?.setCenter([header.centerLon, header.centerLat])
+  if(p !== undefined)
+  {
+    const header = await p.getHeader()
+    mapGl.value?.setZoom(header.maxZoom - 3)
+    mapGl.value?.setCenter([header.centerLon, header.centerLat])
+  }
 
-  // populate the checkboxes
-  // TODO: why is settingsSelection undefined here?
+  // populate the layer checkboxes
   props.maps?.forEach(map => {
-    settingsSelection.value?.push(map.layer.id)
+    settingsSelection.value?.push(getLayerId(map.layer))
   });
 
+  // add sources and layers
+  //TODO: make this parametrize on the map object
   mapGl.value?.on('load', () => {
 
     mapGl.value?.addSource('swiss_gemeinden', {
@@ -98,7 +110,7 @@ onMounted(async () => {
         'fill-opacity': 0.3
       }
     });
-    toggleLayerVisibility("gdf_gemeinden", false)
+    toggleLayerVisibility("gdf_gemeinden", true)
 
     mapGl.value?.addSource('imageSource', {
       type: 'raster',
@@ -113,10 +125,22 @@ onMounted(async () => {
       source: 'imageSource',
       type: 'raster'
     });
-    toggleLayerVisibility("imageLayer", false)
+    toggleLayerVisibility("imageLayer", true)
 
   });
 })
+
+function addPMTilesProtocol(map:Map|undefined)
+{
+  // create a protocol and a source(s) to it
+  const protocol = new Protocol()
+  // add PM Tiles protocol
+  maplibregl.addProtocol('pmtiles', protocol.tile)
+  const PMTILES_URL = map?.protocolData??""
+  const p = new PMTiles(PMTILES_URL)
+  protocol.add(p)
+  return p
+}
 
 function toggleLayerVisibility(layerId: string, layerVisibility: boolean)
 {
@@ -127,12 +151,10 @@ function toggleLayerVisibility(layerId: string, layerVisibility: boolean)
   }
 }
 
-watch(settingsSelection, () => {
-  props.maps?.forEach(map => {
-    const idx = settingsSelection.value?.findIndex((m) => m === map.layer.id) ?? -1
-    toggleLayerVisibility(map.layer.id, idx >=0)
-  });
-})
+function getLayerId(layer:Layer|undefined)
+{
+  return layer?.id??"undefined";
+}
 
 </script>
 

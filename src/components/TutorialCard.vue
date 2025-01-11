@@ -8,13 +8,10 @@
         {{ tutorial?.subtitle }}
       </v-card-subtitle>
       <v-card-text>
-        <Map
-        v-if="tutorial?.protocol === 'simple'"
-        :style="tutorial?.protocolData"
-        :map="tutorial?.maps"
+        <Map v-if="tutorial?.mapType === 'simple'"
+        :map="tutorial?.maps[0]"
         ></Map>
-        <MapPmTiles
-        v-else
+        <MapPmTiles v-else
         :maps="tutorial?.maps"
         ></MapPmTiles>
       </v-card-text>

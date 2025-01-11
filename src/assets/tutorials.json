@@ -2,39 +2,25 @@
   {
     "title": "Display a simple map",
     "subtitle": "We are going to use vue-maplibre-gl to display a simple map.",
-    "protocol": "simple",
-    "protocolData": "https://demotiles.maplibre.org/style.json",
+    "mapType": "simple",
     "maps" : [
       {
+        "protocol": "simple",
+        "protocolData": "https://demotiles.maplibre.org/style.json",
         "centerLng": 8.52364435868436,
         "centerLat": 47.37771305255045,
-        "zoom": 6,
-        "source": {
-          "name": "",
-          "type": "",
-          "url": ""
-        },
-        "layer": {
-          "id": "",
-          "source": "",
-          "sourceLayer": "",
-          "type": "",
-          "paint": {
-            "fillColor": "",
-            "fillCutlineColor": "",
-            "fillOpacity": 0
-          }
-        }
+        "zoom": 6
       }
     ]
   },
   {
     "title": "Display a PM tiles map",
     "subtitle": "We are going to use the native maplibre-gl to display a map from a PM Tiles.",
-    "protocol": "pmtiles",
-    "protocolData": "https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles",
+    "mapType": "pmtiles",
     "maps" : [
       {
+        "protocol": "pmtiles",
+        "protocolData": "https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles",
         "source": {
           "name": "swiss_gemeinden",
           "type": "vector",
@@ -57,10 +43,11 @@
   {
     "title": "Display a COG tiff map",
     "subtitle": "We are going to use the native maplibre-gl to display a map from a TIFF map and the COG protocol.",
-    "protocol": "cog",
-    "protocolData": "",
+    "mapType": "cog",
     "maps" : [
       {
+        "protocol": "pmtiles",
+        "protocolData": "https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles",
         "source": {
           "name": "swiss_gemeinden",
           "type": "vector",
@@ -79,6 +66,7 @@
         }
       },
       {
+        "protocol": "cog",
         "source": {
           "name": "imageSource",
           "type": "raster",
@@ -91,8 +79,7 @@
           "id": "imageLayer",
           "source": "imageSource",
           "sourceLayer": "",
-          "type": "raster",
-          "paint": {}
+          "type": "raster"
         }
       }
     ]
