@@ -15,7 +15,7 @@
         ></Map>
         <MapPmTiles
         v-else
-        :map="tutorial?.maps"
+        :maps="tutorial?.maps"
         ></MapPmTiles>
       </v-card-text>
     </v-card>
