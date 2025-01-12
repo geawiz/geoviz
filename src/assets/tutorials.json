@@ -1,7 +1,7 @@
 [
   {
     "title": "Display a simple map",
-    "subtitle": "We are going to use vue-maplibre-gl to display a simple map.",
+    "subtitle": "We are going to use the native maplibre-gl package to display a simple map.",
     "mapType": "simple",
     "maps" : [
       {
@@ -15,7 +15,7 @@
   },
   {
     "title": "Display a PM tiles map",
-    "subtitle": "We are going to use the native maplibre-gl to display a map from a PM Tiles.",
+    "subtitle": "We are going to use the native maplibre-gl package to display a map from a PM Tiles.",
     "mapType": "pmtiles",
     "maps" : [
       {
@@ -42,7 +42,7 @@
   },
   {
     "title": "Display a COG tiff map",
-    "subtitle": "We are going to use the native maplibre-gl to display a map from a TIFF map and the COG protocol.",
+    "subtitle": "We are going to use the native maplibre-gl package to display a map from a TIFF map and the COG protocol.",
     "mapType": "cog",
     "maps" : [
       {

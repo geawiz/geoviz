@@ -1,24 +1,34 @@
 <template>
   <v-container fluid>
-    <div :id="divId" class="map-container"></div>      
-      <v-list
-      v-model:selected="settingsSelection"
-      select-strategy="leaf"
-      >
-      <v-list-subheader>Layers</v-list-subheader>
-      <v-list-item
-        v-for="(map, i) in maps"
-        :key="i"
-        :title="getLayerId(map.layer)"
-        :value="getLayerId(map.layer)"
-      >
-      <template v-slot:prepend="{ isSelected }">
-        <v-list-item-action start>
-          <v-checkbox-btn :model-value="isSelected"></v-checkbox-btn>
-        </v-list-item-action>
-      </template>
-      </v-list-item>
-    </v-list>
+    <v-row>
+      <v-col cols="12" lg="10" md="10" no-gutters>
+        <div :id="divId" class="map-container"></div>   
+      </v-col>  
+      <v-col cols="12" lg="2" md="2" no-gutters>
+        <v-list
+        lines="one"
+        density="compact"
+        v-model:selected="settingsSelection"
+        select-strategy="leaf"
+        class="mt-n4"
+        >
+        <v-list-subheader>Layers</v-list-subheader>
+        <v-list-item
+          v-for="(map, i) in maps"
+          :key="i"
+          :title="getLayerId(map.layer)"
+          :value="getLayerId(map.layer)"
+          :append-icon="getLayerIcon(map.layer)"
+        >
+        <template v-slot:prepend="{ isSelected }">
+          <v-list-item-action start>
+            <v-checkbox-btn :model-value="isSelected" color="blue"></v-checkbox-btn>
+          </v-list-item-action>
+        </template>
+        </v-list-item>
+      </v-list>
+    </v-col> 
+    </v-row>
   </v-container>
 </template>
 
@@ -156,11 +166,18 @@ function getLayerId(layer:Layer|undefined)
   return layer?.id??"undefined";
 }
 
+function getLayerIcon(layer:Layer|undefined)
+{
+  const layerId = getLayerId(layer)
+  const idx = settingsSelection.value?.findIndex((m) => m === layerId) ?? -1
+  return idx >=0 ? 'mdi-layers' : 'mdi-layers-off'
+}
+
 </script>
 
 <style scoped>
 .map-container {
-  width: 80%;
+  width: 100%;
   height: 500px;
   margin-left: auto;
   margin-right: auto;
