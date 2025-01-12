@@ -8,12 +8,9 @@
         {{ tutorial?.subtitle }}
       </v-card-subtitle>
       <v-card-text>
-        <Map v-if="tutorial?.mapType === 'simple'"
-        :map="tutorial?.maps[0]"
+        <Map
+        :tutorial="tutorial"
         ></Map>
-        <MapPmTiles v-else
-        :maps="tutorial?.maps"
-        ></MapPmTiles>
       </v-card-text>
     </v-card>
 </v-container>  

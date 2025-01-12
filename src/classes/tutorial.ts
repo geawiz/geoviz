@@ -3,18 +3,22 @@ export type Tutorials = Tutorial[]
 export interface Tutorial {
   title: string
   subtitle: string
-  mapType: string
+  basemap?: Basemap
   maps: Map[]
+}
+
+export interface Basemap {
+  style: string
+  centerLng: number
+  centerLat: number
+  zoom: number
 }
 
 export interface Map {
   protocol: string
   protocolData?: string
-  centerLng?: number
-  centerLat?: number
-  zoom?: number
-  source?: Source
-  layer?: Layer
+  source: Source
+  layer: Layer
 }
 
 export interface Source {
@@ -36,6 +40,6 @@ export interface Layer {
 
 export interface Paint {
   fillColor: string
-  fillCutlineColor: string
+  fillOutlineColor: string
   fillOpacity: number
 }

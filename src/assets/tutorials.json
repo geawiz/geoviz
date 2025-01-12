@@ -2,21 +2,25 @@
   {
     "title": "Display a simple map",
     "subtitle": "We are going to use the native maplibre-gl package to display a simple map.",
-    "mapType": "simple",
-    "maps" : [
-      {
-        "protocol": "simple",
-        "protocolData": "https://demotiles.maplibre.org/style.json",
-        "centerLng": 8.52364435868436,
-        "centerLat": 47.37771305255045,
-        "zoom": 6
-      }
-    ]
+    "basemap" : 
+    {
+      "style": "https://demotiles.maplibre.org/style.json",
+      "centerLng": 8.52364435868436,
+      "centerLat": 47.37771305255045,
+      "zoom": 6
+    },
+    "maps" : []
   },
   {
     "title": "Display a PM tiles map",
     "subtitle": "We are going to use the native maplibre-gl package to display a map from a PM Tiles.",
-    "mapType": "pmtiles",
+    "basemap" : 
+    {
+      "style": "https://demotiles.maplibre.org/style.json",
+      "centerLng": 8.52364435868436,
+      "centerLat": 47.37771305255045,
+      "zoom": 6
+    },
     "maps" : [
       {
         "protocol": "pmtiles",
@@ -33,7 +37,7 @@
           "type": "fill",
           "paint": {
             "fillColor": "steelblue",
-            "fillCutlineColor": "white",
+            "fillOutlineColor": "white",
             "fillOpacity": 0.3
           }
         }
@@ -43,7 +47,13 @@
   {
     "title": "Display a COG tiff map",
     "subtitle": "We are going to use the native maplibre-gl package to display a map from a TIFF map and the COG protocol.",
-    "mapType": "cog",
+    "basemap" : 
+    {
+      "style": "https://demotiles.maplibre.org/style.json",
+      "centerLng": 8.52364435868436,
+      "centerLat": 47.37771305255045,
+      "zoom": 6
+    },
     "maps" : [
       {
         "protocol": "pmtiles",
@@ -60,7 +70,7 @@
           "type": "fill",
           "paint": {
             "fillColor": "steelblue",
-            "fillCutlineColor": "white",
+            "fillOutlineColor": "white",
             "fillOpacity": 0.3
           }
         }
