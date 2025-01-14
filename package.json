@@ -15,12 +15,12 @@
   },
   "dependencies": {
     "@geomatico/maplibre-cog-protocol": "^0.4.0",
-    "@indoorequal/vue-maplibre-gl": "^7.7.1",
     "@mdi/font": "^7.4.47",
     "@vueuse/core": "^10.9.0",
     "maplibre-gl": "^4.7.1",
     "pmtiles": "^4.1.0",
     "roboto-fontface": "*",
+    "uuid": "^11.0.5",
     "vue": "^3.4.21",
     "vue-router": "^4.3.2",
     "vuetify": "^3.6.6"

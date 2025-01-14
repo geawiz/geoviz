@@ -2,17 +2,14 @@
   <v-container fluid>
     <v-card class="mx-auto" width="100%">
       <v-card-title>
-        {{ title }}
+        {{ tutorial?.title }}
       </v-card-title>
       <v-card-subtitle>
-        {{ subtitle }}
+        {{ tutorial?.subtitle }}
       </v-card-subtitle>
       <v-card-text>
         <Map
-        :style="mapStyle"
-        :Lng="mapCenterLng"
-        :Lat="mapCenterLat"
-        :zoom="mapZoom"
+        :tutorial="tutorial"
         ></Map>
       </v-card-text>
     </v-card>
@@ -20,14 +17,11 @@
 </template>
 
 <script setup lang="ts">
+import type { PropType } from 'vue'
+import { Tutorial } from '@/classes/tutorial.ts'
 
 const props = defineProps({
-  title: String,
-  subtitle: String,
-  mapStyle: String,
-  mapCenterLng: Number,
-  mapCenterLat: Number,
-  mapZoom: Number
+  tutorial: Object as PropType<Tutorial>
 })
 
 </script>
