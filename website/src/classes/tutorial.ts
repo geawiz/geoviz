@@ -15,6 +15,7 @@ export interface Basemap {
 }
 
 export interface Map {
+  screenName: string
   protocol: string
   protocolData?: string
   source: Source
@@ -42,4 +43,5 @@ export interface Paint {
   fillColor: string
   fillOutlineColor: string
   fillOpacity: number
+  rasterOpacity: number
 }

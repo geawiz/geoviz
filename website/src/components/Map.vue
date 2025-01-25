@@ -16,7 +16,7 @@
         <v-list-item
           v-for="(map, i) in tutorial?.maps"
           :key="i"
-          :title="getLayerId(map.layer)"
+          :title="getMapScreenName(map)"
           :value="getLayerId(map.layer)"
           :append-icon="getLayerIcon(map.layer)"
         >
@@ -145,7 +145,7 @@ function addPmTilesSourceAndLayer(map:Map|undefined)
     id: layerId,
     source: sourceId,
     'source-layer': layerId,
-    type: 'fill', // TODO: you need a method that populates the bottom based on the type.
+    type: 'fill',
     paint: {
       'fill-color': map?.layer.paint?.fillColor,
       'fill-outline-color': map?.layer.paint?.fillOutlineColor,
@@ -172,7 +172,10 @@ function addCogSourceAndLayer(map:Map|undefined)
   mapGl.value?.addLayer({
     id: layerId,
     source: sourceId,
-    type: 'raster'
+    type: 'raster',
+    paint: {
+      "raster-opacity": map?.layer.paint?.rasterOpacity
+    }
   });
   
   toggleLayerVisibility(layerId, true)
@@ -190,6 +193,11 @@ function toggleLayerVisibility(layerId: string, layerVisibility: boolean)
 function getLayerId(layer:Layer|undefined)
 {
   return layer?.id??"undefined";
+}
+
+function getMapScreenName(map:Map|undefined)
+{
+  return map?.screenName??"undefined";
 }
 
 function getLayerIcon(layer:Layer|undefined)
