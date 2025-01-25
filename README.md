@@ -1,56 +1,34 @@
 
-# GeoViz
-Add brief description of the goal.
-This is the main repo for the ``GeoViz`` tutorials.
+# GeoViz Tutorials
+This repository is a collection of tutorials that should help you rendering maps on the Web. The main objective of these tutorials is to illustrate how to add layers of data to base maps, leveraging different protocols for different mapping needs. For this, we will be using the amazing [maplibre-gl-js](https://github.com/maplibre/maplibre-gl-js) library. Most of the tutorials will have code examples in two different flavour: plain HTML, as well as [Vue 3](https://vuejs.org) components.
 
 ## Tutorial outline
-How to use this page and a table linking to the tutorials.
+This repo provides a practical, hands-on approach to display maps on the Web. We will cover all the steps involved in displaying data localized on maps, in an incremental fashion. 
+
+| Module | Description | Status |
+|--------|-------------|--------|
+| [Getting Started](./0_getting-started) | Set up your dev environment for the main tutorials | 🚧 WIP | 
+| [Display a Base Map](./1_simple-map) | Learn how to use [maplibre-gl-js](https://github.com/maplibre/maplibre-gl-js) to display a base map| 🚧 WIP  |
+| [Working with PMTiles files](./2_PMTiles-map) | Learn how to access `PMTiles` files using the `pmtiles` protocol and display tiled data on a base map | 🚧 WIP |
+| [Working with Cloud Optimized GEOTiff files](./3_Cloud-Optimized-GeoTIFF) | Learn how to access `COG` files to display data on a base map | 🚧 WIP |
+| [Dynamically Load Layers](./4_layer-list) | Create a list of available layers and dynamically toggle them on a base map | 🚧 WIP | 
+
+## Prerequisites
+Before starting, ensure you have the following:
+- Basic understanding of maps and HTML/Web development.
+- Familiarity with Python, HTML/Vue and the [GeoPandas](https://geopandas.org/en/stable/) library.
+- Access to a AWS S3 bucket for some of the tutorials (more info in the [Getting Started](./0_getting-started) tutorial).
 
 ## Tech stack
 
-The [website](site) is built using [Vue 3](https://vuejs.org), TypeScript and [Vite](https://vitejs.dev). [Vuetify](https://vuetifyjs.com/en/) is used as the Component Framework and UI library.
+The tutorials in this repository leverage the following tech stack
 
-The [data processing](dataprocessing) scripts use either Python or shell commands/scripts.
+- Python3 and shell scripts for [data processing](./dataprocessing).
+-  [Vue 3](https://vuejs.org), TypeScript, [Vuetify](https://vuetifyjs.com/en/) and [Vite](https://vitejs.dev) to build the tutorials [website](./site).
 
 ### Recommended Setup
 
 - [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur.
-
-### Develop and build the site
-Move to the [website](site) folder 
-
-````
-~ cd site
-```` 
-
-and then run 
-
-````
-~ pnpm install
-```` 
-
-to install all dependencies required to build.
-
-Then to develop run
-
-````
-~ npm run dev
-````
-
-(or clikc theplay icon in the ``NPM SCRIPT`` panel on the left side of VSCode)
-which serves a development version of this website. This allows you to use hot-reloading and make changes on the fly.
-
-### Deploy the site
-
-When happy with the local changes, run 
-
-````
-~ npm run build
-````
-
-This command builds the static website in the folder [docs](docs).
-
-In the end, commit all changes, including the newly built [docs](docs) folder. This will change the live website to the latest built version. 
 
 ## License
 Licensed under the [MIT license](LICENSE).
