@@ -4,11 +4,11 @@ The following steps have been tested on a macOS system running Sequoia 15.1.1. T
 ## Setting up AWS to Serve Spatial Data 
 We use [AWS S3](https://aws.amazon.com/de/s3/) cloud storage to store our spatial datasets. Follow below steps to create a S3 storage bucket.
 1. Sign up for a free AWS account [here](https://signin.aws.amazon.com/signup?request_type=register).
-2. Go to the S3 service by typing "S3" into the search bar at the top of you AWS console.
-3. Before creating a new storage bucket, you can select the region in which you want to store your data. Use the region dropdown right to the search bar.
-4. 
-
-5. Set a bucket policy that allows to read files in your bucket using http get requests. Use the edit button of your Bucket policy section inside the Permission tab to add below json. 
+2. Go to the S3 service by typing `S3` into the search bar at the top of you AWS console.
+3. Before creating a new storage bucket, you can select the region in which you want to store your data. Use the region dropdown to the right of the search bar.
+4. Click `Create bucket` and provide a name for your bucket. We maintained the default settings except removing the tick from `Block all public access` from the `Block Public Access settings for this bucket` section.
+5. Click `Create bucket` at the bottom of the page and acknowledge that you want to grant public access.
+6. Set a bucket policy that allows reading files in your bucket by anyone using http get requests. Use the edit button of your bucket policy under the Permission tab to add below json. 
 ```
 {
     "Version": "2012-10-17",
@@ -18,11 +18,37 @@ We use [AWS S3](https://aws.amazon.com/de/s3/) cloud storage to store our spatia
             "Effect": "Allow",
             "Principal": "*",
             "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::geovizbucket/*"
+            "Resource": "arn:aws:s3:::<name-of-your-s3-bucket>/*"
         }
     ]
 }
 ```
+Warning: By defining this policy anybody can read all files in your bucket `<name-of-your-s3-bucket>`: Find detailed explanations on defining a policy [here](https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-policy-language-overview.html?icmpid=docs_amazons3_console).
+
+7. TODO Check if headers are required.
+```
+[
+    {
+        "AllowedHeaders": [
+            "*"
+        ],
+        "AllowedMethods": [
+            "GET"
+        ],
+        "AllowedOrigins": [
+            "https://geawiz.github.io/geoviz/"
+        ],
+        "ExposeHeaders": [
+            "Accept-Ranges",
+            "Content-Encoding",
+            "Content-Length",
+            "Content-Range"
+        ],
+        "MaxAgeSeconds": 3000
+    }
+]
+```
+
 ## Setting up Python Environments for data processing
 TODO
 
