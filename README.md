@@ -1,6 +1,10 @@
-# GeoViz
 
+# GeoViz
+Add brief description of the goal.
 This is the main repo for the ``GeoViz`` tutorials.
+
+## Tutorial outline
+How to use this page and a table linking to the tutorials.
 
 ## Tech stack
 
@@ -22,7 +26,7 @@ Move to the [website](site) folder
 and then run 
 
 ````
-~ pnpn install
+~ pnpm install
 ```` 
 
 to install all dependencies required to build.
@@ -36,7 +40,7 @@ Then to develop run
 (or clikc theplay icon in the ``NPM SCRIPT`` panel on the left side of VSCode)
 which serves a development version of this website. This allows you to use hot-reloading and make changes on the fly.
 
-### Deply the site
+### Deploy the site
 
 When happy with the local changes, run 
 
