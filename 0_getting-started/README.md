@@ -9,7 +9,7 @@ We use [AWS S3](https://aws.amazon.com/de/s3/) cloud storage to store our spatia
 4. 
 
 5. Set a bucket policy that allows to read files in your bucket using http get requests. Use the edit button of your Bucket policy section inside the Permission tab to add below json. 
-'''
+```
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -22,7 +22,7 @@ We use [AWS S3](https://aws.amazon.com/de/s3/) cloud storage to store our spatia
         }
     ]
 }
-'''
+```
 ## Setting up Python Environments for data processing
 TODO
 
