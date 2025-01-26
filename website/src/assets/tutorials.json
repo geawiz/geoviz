@@ -4,7 +4,7 @@
     "subtitle": "Use the checkboxes in the Layers list to toggle the the data associated with each tutorial",
     "basemap" : 
     {
-      "style": "https://demotiles.maplibre.org/style.json",
+      "style": "https://geovizbucket.s3.us-west-2.amazonaws.com/osm_basempa_style.json",
       "centerLng": 8.52364435868436,
       "centerLat": 47.37771305255045,
       "zoom": 6
@@ -48,7 +48,7 @@
           "sourceLayer": "",
           "type": "raster",
           "paint": {
-            "rasterOpacity": 0.9
+            "rasterOpacity": 0.7
           }
         }
       }
