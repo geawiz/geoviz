@@ -28,7 +28,7 @@ onMounted(async () => {
   })
 
   // add controls
-  mapGl.value?.addControl(new maplibregl.NavigationControl(), 'bottom-right')
+  mapGl.value?.addControl(new maplibregl.NavigationControl(), 'top-right')
 
   // zoom center the map
   mapGl.value?.setZoom(14)
