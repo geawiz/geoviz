@@ -1,0 +1,100 @@
+[
+  {
+    "title": "Display a simple map",
+    "subtitle": "We are going to use the native maplibre-gl package to display a simple map.",
+    "basemap" : 
+    {
+      "style": "https://demotiles.maplibre.org/style.json",
+      "centerLng": 8.52364435868436,
+      "centerLat": 47.37771305255045,
+      "zoom": 6
+    },
+    "maps" : []
+  },
+  {
+    "title": "Display a PM tiles map",
+    "subtitle": "We are going to use the native maplibre-gl package to display a map from a PM Tiles.",
+    "basemap" : 
+    {
+      "style": "https://demotiles.maplibre.org/style.json",
+      "centerLng": 8.52364435868436,
+      "centerLat": 47.37771305255045,
+      "zoom": 6
+    },
+    "maps" : [
+      {
+        "screenName": "PM Tiles",
+        "protocol": "pmtiles",
+        "protocolData": "https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles",
+        "source": {
+          "name": "swiss_gemeinden",
+          "type": "vector",
+          "url": "pmtiles://https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles"
+        },
+        "layer": {
+          "id": "gdf_gemeinden",
+          "source": "swiss_gemeinden",
+          "sourceLayer": "gdf_gemeinden",
+          "type": "fill",
+          "paint": {
+            "fillColor": "steelblue",
+            "fillOutlineColor": "white",
+            "fillOpacity": 0.3
+          }
+        }
+      }
+    ]
+  },
+  {
+    "title": "Display a COG tiff map",
+    "subtitle": "We are going to use the native maplibre-gl package to display a map from a TIFF map and the COG protocol.",
+    "basemap" : 
+    {
+      "style": "https://demotiles.maplibre.org/style.json",
+      "centerLng": 8.52364435868436,
+      "centerLat": 47.37771305255045,
+      "zoom": 6
+    },
+    "maps" : [
+      {
+        "screenName": "PM Tiles",
+        "protocol": "pmtiles",
+        "protocolData": "https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles",
+        "source": {
+          "name": "swiss_gemeinden",
+          "type": "vector",
+          "url": "pmtiles://https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles"
+        },
+        "layer": {
+          "id": "gdf_gemeinden",
+          "source": "swiss_gemeinden",
+          "sourceLayer": "gdf_gemeinden",
+          "type": "fill",
+          "paint": {
+            "fillColor": "steelblue",
+            "fillOutlineColor": "white",
+            "fillOpacity": 0.3
+          }
+        }
+      },
+      {
+        "screenName": "CO GEOTiff",
+        "protocol": "cog",
+        "source": {
+          "name": "imageSource",
+          "type": "raster",
+          "url": "cog://https://geovizbucket.s3.us-west-2.amazonaws.com/output_cog_small_jpeg.tif",
+          "tileSize": 512,
+          "minzoom": 5,
+          "maxzoom": 20
+        },
+        "layer": {
+          "id": "imageLayer",
+          "source": "imageSource",
+          "sourceLayer": "",
+          "type": "raster"
+        }
+      }
+    ]
+  }
+]
