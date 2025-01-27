@@ -1,1 +1,2 @@
-# Add a list that allows you to dynamically display map layers
+# Dynamically display map layers using a checkbox list
+Coming soon
