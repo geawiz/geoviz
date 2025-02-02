@@ -52,7 +52,16 @@ Warning: By defining this policy anybody can read all files in your bucket `<nam
 Alternative object storage such as e.g. [Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs) offer similar capabilities.
 
 ## Setting up Python Environments for data processing
-
+We use Jupyter Notebooks in those two tutorials [Working with PMTiles files](../2_PMTiles-map), [Working with Cloud Optimized GEOTiff files](../3_Cloud-Optimized-GeoTIFF). We suggest using [conda](https://docs.conda.io/en/latest/) to manage your environment. Create a new environment and activate it:
+```
+$ conda create -n geoviz python=3.9
+$ conda activate geoviz
+``` 
+Install [geopandas](https://geopandas.org/en/stable/index.html) and [rasterio](https://rasterio.readthedocs.io/en/stable/index.html).
+```
+$ conda install -c conda-forge rasterio geopandas ipykernel --strict-channel-priority
+```
+We use `--strict-channel-priority` to have a more predictable and controlled environment resolution process, at the cost of potentially fewer package/version options. 
 
 ## Install tippecanoe to create PM Vector Tiles
 On OSX system, use [Homebrew](http://brew.sh/) to install ``tippecanoe``:
