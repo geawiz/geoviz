@@ -2,13 +2,13 @@
 The following steps have been tested on a macOS system running Sequoia 15.1.1. These instructions should also work on a recent Debian systems. For Windows-based systems some additional steps may be required to install the `tippecanoe` utilities.
 
 ## Setting up AWS to Serve Spatial Data 
-We use [AWS S3](https://aws.amazon.com/de/s3/) cloud storage to store our spatial datasets. Follow below steps to create a S3 storage bucket.
+We use [AWS S3](https://aws.amazon.com/de/s3/) cloud storage to store our spatial datasets. Before we upload data to our storage buckets in modules [Working with PMTiles files](../2_PMTiles-map) and [Working with Cloud Optimized GEOTiff files](../3_Cloud-Optimized-GeoTIFF), we need to follow below steps to create a S3 storage bucket.
 1. Sign up for a free AWS account [here](https://signin.aws.amazon.com/signup?request_type=register).
 2. Go to the S3 service by typing `S3` into the search bar at the top of you AWS console.
 3. Before creating a new storage bucket, you can select the region in which you want to store your data. Use the region dropdown to the right of the search bar.
 4. Click `Create bucket` and provide a name for your bucket. We maintained the default settings except removing the tick from `Block all public access` from the `Block Public Access settings for this bucket` section.
-5. Click `Create bucket` at the bottom of the page and acknowledge that you want to grant public access.
-6. Set a bucket policy that allows reading files in your bucket by anyone using http get requests. Use the edit button of your bucket policy under the Permission tab to add below json. 
+5. Click `Create bucket` at the bottom of the page and acknowledge that you want to grant public access to the bucket.
+6. Define a bucket policy that allows reading the files in your bucket publicly using http get requests. Under the Permission tab, use the edit button of your bucket policy and add below json. Make sure you replace `<name-of-your-s3-bucket>` with the actual name of your bucket. 
 ```
 {
     "Version": "2012-10-17",
@@ -25,7 +25,7 @@ We use [AWS S3](https://aws.amazon.com/de/s3/) cloud storage to store our spatia
 ```
 Warning: By defining this policy anybody can read all files in your bucket `<name-of-your-s3-bucket>`: Find detailed explanations on defining a policy [here](https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-policy-language-overview.html?icmpid=docs_amazons3_console).
 
-7. TODO Check if headers are required.
+7. Under the same Permission tab add below json to the Cross-origin resource sharing (CORS) section. This allows range requests to the content of your s3 bucket.
 ```
 [
     {
@@ -36,7 +36,7 @@ Warning: By defining this policy anybody can read all files in your bucket `<nam
             "GET"
         ],
         "AllowedOrigins": [
-            "https://geawiz.github.io/geoviz/"
+            "*"
         ],
         "ExposeHeaders": [
             "Accept-Ranges",
@@ -48,6 +48,8 @@ Warning: By defining this policy anybody can read all files in your bucket `<nam
     }
 ]
 ```
+
+Alternative object storage such as e.g. [Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs) offer similar capabilities.
 
 ## Setting up Python Environments for data processing
 TODO
