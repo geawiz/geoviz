@@ -144,7 +144,7 @@ The complete example code used in this first tutorial can be found below (you wi
 </html>
  ```
 
-If you save the code above in a file and save it as ``html`` your should be able to open it in a browser, resulting in something like the following image:
+If you save the code above in a HTML file you should be able to open it in a browser, resulting in something like the following image:
 
 ![Displaying a Base Map Using MapLibre](./tutorial_1.png)
 

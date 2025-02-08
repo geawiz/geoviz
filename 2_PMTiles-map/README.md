@@ -36,7 +36,7 @@ As a refresher, in the the [first tutorial](../1_simple-map//README.md) we added
 
 ### Load the pmtiles protocol
 
-To be able to load our PMTile file, we first need to add the proper protocol to the ``map`` object. That is, we need to add the protocol ``pmtiles`` to the ``map`` object. This can be done by using the [``addProtocol``](https://maplibre.org/maplibre-gl-js/docs/API/functions/addProtocol/) method of maplibregl, which takes a protocol type as string, and a [AddProtocolAction()](https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/AddProtocolAction/), which is used to register the protocol handler (i.e., the function to use when trying to fetch a tile specified by the protocol). Once the protocol is loaded, we can get from the file header the map 
+To be able to load our PMTile file, we first need to add the proper protocol to the ``map`` object. That is, we need to add the protocol ``pmtiles`` to the ``map`` object. This can be done by using the [``addProtocol()``](https://maplibre.org/maplibre-gl-js/docs/API/functions/addProtocol/) method of maplibregl, which takes as arguments a protocol type as ``string`` and a [AddProtocolAction()](https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/AddProtocolAction/) function, which is used to register the protocol handler (i.e., the function to use when trying to fetch a tile specified by the protocol). Once the protocol is loaded, we can get from the file header the map 
 center and max zoom level, to better center our map view around the data loaded:
 
 ```html
@@ -105,8 +105,8 @@ Once the data is loaded, we can proceed to bind the source and layers to our ``m
               'source-layer': 'gdf_gemeinden',
               type: 'fill',
               paint: {
-                'fill-color': 'steelblue',
-                'fill-outline-color': 'white',
+                'fill-color': 'blue',
+                'fill-outline-color': 'red',
                 'fill-opacity': 0.3
               }
             }
@@ -120,6 +120,8 @@ Once the data is loaded, we can proceed to bind the source and layers to our ``m
 
 </body>
 ```
+
+As you can see, the source and layers are added to the ``style`` section of the constructor. It is important to carefully match the id used for the ``source`` with the ``id`` key of each ``layer`` (this example has only one layer). The same should be done for the ``source`` and ``source-layer`` key of each ``layer``.
 
 Source and layers can also be added _after_ the creation of the map object. To do so, one can use the [``addSource()``](https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/#addsource) and [``addLayer()``](https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/#addlayer) methods of the ``map`` object, which essentially take as argument the same objects we passed to the ``maplibregl.Map`` object constructor. For example, one can add source and layers in the ``onload``callback of said object:
 
@@ -139,8 +141,8 @@ Source and layers can also be added _after_ the creation of the map object. To d
         'source-layer': layerId,
         type: 'fill',
         paint: {
-          'fill-color': 'steelblue',
-          'fill-outline-color': 'white',
+          'fill-color': 'blue',
+          'fill-outline-color': 'red',
           'fill-opacity': 0.3
         }
       });
@@ -217,8 +219,8 @@ That's it! Display tiled data from a PMTiles files is relatively straightforward
               'source-layer': 'gdf_gemeinden',
               type: 'fill',
               paint: {
-                'fill-color': 'steelblue',
-                'fill-outline-color': 'white',
+                'fill-color': 'blue',
+                'fill-outline-color': 'red',
                 'fill-opacity': 0.3
               }
             }
@@ -239,18 +241,17 @@ That's it! Display tiled data from a PMTiles files is relatively straightforward
 
 </html>
  ```
- If you save the code above in a file and save it as ``html`` your should be able to open it in a browser, resulting in something like the following image:
- 
- ![Displaying data from a PMTiles file on a Base Map Using MapLibre](./tutorial_2.png)
 
- ## Bonus: a Vue 3 component to display a PMTiles file on a Base Map Using MapLibre
- As for the [first tutorial](../1_simple-map/README.md) we are going to illustrate how to achieve the same steps detailed above in a Vue 3 component. Also for this case the steps for displaying data from a PMTiles file on a base-map in your page/app using Vue 3 are identical to the ones detailed for the HTML case.
+If you save the code snippet above in a HTML file you should be able to open it in a browser, resulting in something like the following image:
 
- Below you find the complete code, which is also included in the [Map.ve](./Map.vue) file in this tutorial folder:
+![Displaying data from a PMTiles file on a Base Map Using MapLibre](./tutorial_2.png)
 
- TODO
+## Bonus: a Vue 3 component to display a PMTiles file on a Base Map Using MapLibre
+As for the [first tutorial](../1_simple-map/README.md) we are going to illustrate how to achieve the same steps detailed above in a Vue 3 component. Also for this case the steps for displaying data from a PMTiles file on a base-map in your page/app using Vue 3 are identical to the ones detailed for the HTML case: add the ``pmtiles`` protocol, link it to the ``map`` object in your component and finally add a ``source`` and ``layers` to it. Is that simple!
 
- ```vue
+Below you find the complete code, which is also included in the [Map.ve](./Map.vue) file in this tutorial folder:
+
+```vue
 <template>
   <v-container fluid>
     <v-row>
@@ -265,6 +266,7 @@ That's it! Display tiled data from a PMTiles files is relatively straightforward
 
 import { onMounted, ref } from 'vue'
 import maplibregl from 'maplibre-gl'
+import { Protocol, PMTiles } from 'pmtiles'
 import 'maplibre-gl/dist/maplibre-gl.css'
 
 // we declare the maplibregl.Map object here, as in more complex components
@@ -274,6 +276,9 @@ const mapGl = ref<maplibregl.Map|null>(null);
 
 onMounted(async () => {
 
+  // add the pmtiles protocol
+  var p = addPMTilesProtocol()
+
   // create the map object, bind it to the 'map' div in the template
   mapGl.value = new maplibregl.Map({
     container: 'map',
@@ -281,12 +286,52 @@ onMounted(async () => {
   })
 
   // add controls
-  mapGl.value?.addControl(new maplibregl.NavigationControl(), 'bottom-right')
+  mapGl.value?.addControl(new maplibregl.NavigationControl(), 'top-right')
 
   // zoom center the map
-  mapGl.value?.setZoom(14)
-  mapGl.value?.setCenter([8.542810246023732, 47.371741515957304])
+  const header = await p.getHeader()
+  mapGl.value?.setZoom(header.maxZoom - 3)
+  mapGl.value?.setCenter([header.centerLon, header.centerLat])
+
+  // add sources and layers
+  addPmTilesSourceAndLayer()
 })
+
+function addPMTilesProtocol()
+{
+  // create a protocol and a source(s) to it
+  const protocol = new Protocol()
+  // add PM Tiles protocol
+  maplibregl.addProtocol('pmtiles', protocol.tile)
+  const PMTILES_URL = "https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles"
+  const p = new PMTiles(PMTILES_URL)
+  protocol.add(p)
+  return p
+}
+
+function addPmTilesSourceAndLayer()
+{
+  // add source
+  const sourceId = "swiss_gemeinden"
+  mapGl.value?.addSource(sourceId, {
+    type: "vector",
+    url: 'pmtiles://https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles'
+  });
+
+  // add layer
+  const layerId = "gdf_gemeinden"
+  mapGl.value?.addLayer({
+    id: layerId,
+    source: sourceId,
+    'source-layer': layerId,
+    type: 'fill',
+    paint: {
+      'fill-color': 'blue',
+      'fill-outline-color': 'red',
+      'fill-opacity': 0.3
+    }
+  });
+}
 
 </script>
 
