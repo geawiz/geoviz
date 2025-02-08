@@ -249,7 +249,7 @@ If you save the code snippet above in a HTML file you should be able to open it 
 ## Bonus: a Vue 3 component to display a PMTiles file on a Base Map Using MapLibre
 As for the [first tutorial](../1_simple-map/README.md) we are going to illustrate how to achieve the same steps detailed above in a Vue 3 component. Also for this case the steps for displaying data from a PMTiles file on a base-map in your page/app using Vue 3 are identical to the ones detailed for the HTML case: add the ``pmtiles`` protocol, link it to the ``map`` object in your component and finally add a ``source`` and ``layers` to it. Is that simple!
 
-Below you find the complete code, which is also included in the [Map.ve](./Map.vue) file in this tutorial folder:
+Below you find the complete code, which is also included in the [Map.vue](./Map.vue) file in this tutorial folder:
 
 ```vue
 <template>
