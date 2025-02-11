@@ -5,7 +5,8 @@ This module explains how to display vector data on a map. We follow a serverless
 We create a PMTiles archive based that contains Swiss ZIP codes. This [Jupyter Notebook](./prepare_vector_tiles.ipynb) provides step-by-step instructions on how to first download the ZIP codes as `.shp` files, then transform them into a suitable geographic projection and ultimately store them as PMTiles. You can either run the notebook on your local machine or on [Google Colab](https://colab.google).
 
 ## Upload PMTiles to S3
-Once the PMTiles file is created, we simply have to drag-and-drop it into the AWS S3 storage bucket created in the [Getting Started](../README.md) module.
+Once you’ve created your PMTiles file, simply upload it to your AWS S3 bucket (created in the [Getting Started](../README.md) module) by dragging and dropping the file.
+[Protomaps documentation](https://docs.protomaps.com/pmtiles/cloud-storage) provides similar resources on how to serve a PMTiles file via AWS S3. In addition, they provide [details](https://docs.protomaps.com/deploy/aws) on creating a CDN-cached ZXY API to boost performance when serving PMTiles.
 
 ## Display a PMTiles file on a Base Map Using MapLibre
 With the file uploaded to the AWS S3 bucket, we can proceed to visualize the data on the base map we have created in the [first tutorial](../1_simple-map//README.md) of this series. 
