@@ -58,6 +58,8 @@ Once the data is loaded, we can proceed to bind the source and layers to our ``m
 
   <script>
     // create the protocol and a source to it
+    //...
+    const PMTILES_URL = "https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles"
     // ...
 
     // here we add a map to the div tagged above
@@ -73,7 +75,7 @@ Once the data is loaded, we can proceed to bind the source and layers to our ``m
           sources: {
             "swiss_gemeinden": {
               type: "vector",
-              url: "pmtiles://https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles"
+              url: `pmtiles://${PMTILES_URL}`
             }
           },
           layers: [
@@ -128,99 +130,7 @@ Source and layers can also be added _after_ the creation of the map object. To d
 ```
 
 ## Putting it all together
-That's it! Display tiled data from a PMTiles files is relatively straightforward. As before, the complete example code used in this tutorial can be found below (you will find the same code in the [index.html](./index.html) file in this folder):
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <title>GeoViz: Displaying data from a PMTiles file on a Base Map Using MapLibre</title>
-  <meta property="og:description" content="Displaying data from a PMTiles file on a Base Map Using MapLibre" />
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- import the maplibre-gl-js stylesheet -->
-  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.0.1/dist/maplibre-gl.css" />
-  <!-- import the maplibre-gl-js library -->
-  <script src="https://unpkg.com/maplibre-gl@5.0.1/dist/maplibre-gl.js"></script>
-  <script src="https://unpkg.com/pmtiles@3.2.0/dist/pmtiles.js"></script>
-  <style>
-    body {
-      margin: 50;
-      padding: 0;
-    }
-
-    html,
-    body,
-    #map {
-      height: 95%;
-    }
-  </style>
-</head>
-
-<body>
-  <h1>Displaying data from a PMTiles file on a Base Map Using MapLibre</h1>
-  <!-- This is the div used to insert the map in the page, tagged as "map" -->
-  <div id="map"></div>
-
-  <script>
-    // create the protocol and a source to it
-    const protocol = new pmtiles.Protocol()
-    // add PM Tiles protocol
-    maplibregl.addProtocol("pmtiles", protocol.tile)
-    // this is the url of your PMTiles file uploaded in the AWS S3 bucket
-    const PMTILES_URL = "https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles"
-    // Associate a PMTiles instance with the protocol
-    const p = new pmtiles.PMTiles(PMTILES_URL)
-    protocol.add(p)
-    
-    //  Fetch header to center the map
-    p.getHeader().then(header => {
-      // here we add a map to the div tagged above
-      const map = new maplibregl.Map({
-        container: "map",
-        style: "https://geovizbucket.s3.us-west-2.amazonaws.com/osm_basempa_style.json",
-        center: [header.centerLon, header.centerLat],
-        zoom: header.maxZoom - 3,
-        style: {
-          version: 8,
-          sources: {
-            "swiss_gemeinden": {
-              type: "vector",
-              url: "pmtiles://https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles"
-            }
-          },
-          layers: [
-            {
-              id: "gdf_gemeinden",
-              source: "swiss_gemeinden",
-              "source-layer": "gdf_gemeinden",
-              type: "fill",
-              paint: {
-                "fill-color": "blue",
-                "fill-outline-color": "red",
-                "fill-opacity": 0.3
-              }
-            }
-          ]
-        }
-      });
-      // add zoom and rotation controls to the map.
-      map.addControl(new maplibregl.NavigationControl({
-          visualizePitch: true,
-          visualizeRoll: true,
-          showZoom: true,
-          showCompass: true
-      }));
-    });
-  </script>
-
-</body>
-
-</html>
- ```
-
-If you save the code snippet above in a HTML file you should be able to open it in a browser, resulting in something like the following image:
+That's it! Display tiled data from a PMTiles files is relatively straightforward and can be achieved in few simple steps. As before, the complete example code used in this tutorial can be found in the [index.html](./index.html) file in this folder. Opening it in a browser should render something like the following image:
 
 ![Displaying data from a PMTiles file on a Base Map Using MapLibre](./tutorial_2.png)
 
