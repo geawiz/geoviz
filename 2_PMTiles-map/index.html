@@ -40,46 +40,50 @@
     // Associate a PMTiles instance with the protocol
     const p = new pmtiles.PMTiles(PMTILES_URL)
     protocol.add(p)
-    
+
     //  Fetch header to center the map
     p.getHeader().then(header => {
       // here we add a map to the div tagged above
       const map = new maplibregl.Map({
         container: "map",
-        style: "https://geovizbucket.s3.us-west-2.amazonaws.com/osm_basempa_style.json",
+        style: 'https://geovizbucket.s3.us-west-2.amazonaws.com/osm_basempa_style.json',
         center: [header.centerLon, header.centerLat],
         zoom: header.maxZoom - 3,
-        style: {
-          version: 8,
-          sources: {
-            "swiss_gemeinden": {
-              type: "vector",
-              url: `pmtiles://${PMTILES_URL}`
-            }
-          },
-          layers: [
-            {
-              id: "gdf_gemeinden",
-              source: "swiss_gemeinden",
-              "source-layer": "gdf_gemeinden",
-              type: "fill",
-              paint: {
-                "fill-color": "blue",
-                "fill-outline-color": "red",
-                "fill-opacity": 0.3
-              }
-            }
-          ]
-        }
       });
+
       // add zoom and rotation controls to the map.
       map.addControl(new maplibregl.NavigationControl({
-          visualizePitch: true,
-          visualizeRoll: true,
-          showZoom: true,
-          showCompass: true
+        visualizePitch: true,
+        visualizeRoll: true,
+        showZoom: true,
+        showCompass: true
       }));
+
+      // add source + layers
+      map.on('load', () => {
+        // add source
+        const sourceId = "swiss_gemeinden"
+        map.addSource(sourceId, {
+          type: "vector",
+          url: `pmtiles://${PMTILES_URL}`
+        });
+
+        // add layer
+        const layerId = "gdf_gemeinden"
+        map.addLayer({
+          id: layerId,
+          source: sourceId,
+          "source-layer": layerId,
+          type: "fill",
+          paint: {
+            "fill-color": "blue",
+            "fill-outline-color": "red",
+            "fill-opacity": 0.3
+          }
+        });
+      });
     });
+
   </script>
 
 </body>

@@ -50,7 +50,7 @@ To be able to load our PMTile file, we first need to add the proper protocol to 
 ```
 
 ### Add PM Tiles Source and Layers
-Once the data is loaded, we can proceed to bind the source and layers to our ``map`` which are contained in the PMTiles file. To do so, we extended the construction of the ``maplibregl.Map`` object to include the source and layers contained in our file.
+Once the data is loaded, we can proceed to bind the source and layers to our ``map`` which are contained in the PMTiles file. To do so, we use the [``addSource()``](https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/#addsource) and [``addLayer()``](https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/#addlayer) methods of the ``map`` object. While setting up source and layers, it is important to carefully match the id used for the ``source`` with the ``id`` key of each ``layer`` (this example has only one layer). The same should be done for the ``source`` and ``source-layer`` key of each ``layer``. To make sure the base map is loaded _before_ the extra sources and layers are rendered on it, we add the source and layers in the ``onload``callback of the ``maplibregl.Map`` object.
 
 ```html
 <body>
@@ -70,63 +70,37 @@ Once the data is loaded, we can proceed to bind the source and layers to our ``m
         style: "https://geovizbucket.s3.us-west-2.amazonaws.com/osm_basempa_style.json",
         center: [header.centerLon, header.centerLat],
         zoom: header.maxZoom - 3,
-        style: {
-          version: 8,
-          sources: {
-            "swiss_gemeinden": {
-              type: "vector",
-              url: `pmtiles://${PMTILES_URL}`
-            }
-          },
-          layers: [
-            {
-              id: "gdf_gemeinden",
-              source: "swiss_gemeinden",
-              "source-layer": "gdf_gemeinden",
-              type: "fill",
-              paint: {
-                "fill-color": "blue",
-                "fill-outline-color": "red",
-                "fill-opacity": 0.3
-              }
-            }
-          ]
-        }
       });
       // add controls here
       // ...
+
+      // add source + layers
+      map.on('load', () => {
+        // add source
+        const sourceId = "swiss_gemeinden"
+        map.addSource(sourceId, {
+          type: "vector",
+          url: `pmtiles://${PMTILES_URL}`
+        });
+
+        // add layer
+        const layerId = "gdf_gemeinden"
+        map.addLayer({
+          id: layerId,
+          source: sourceId,
+          "source-layer": layerId,
+          type: "fill",
+          paint: {
+            "fill-color": "blue",
+            "fill-outline-color": "red",
+            "fill-opacity": 0.3
+          }
+        });
+      });
     });
   </script>
 
 </body>
-```
-
-As you can see, the source and layers are added to the ``style`` section of the constructor. It is important to carefully match the id used for the ``source`` with the ``id`` key of each ``layer`` (this example has only one layer). The same should be done for the ``source`` and ``source-layer`` key of each ``layer``.
-
-Source and layers can also be added _after_ the creation of the map object. To do so, one can use the [``addSource()``](https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/#addsource) and [``addLayer()``](https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/#addlayer) methods of the ``map`` object, which essentially take as argument the same objects we passed to the ``maplibregl.Map`` object constructor. For example, one can add source and layers in the ``onload``callback of said object:
-
-``` javascript
-  map.on("load", () => {
-      const sourceId = "swiss_gemeinden"
-      map.addSource(sourceId, {
-        type: "vector",
-        url: map?.source.url,
-      });
-
-      // add layer
-      const layerId = "gdf_gemeinden"
-      map.addLayer({
-        id: layerId,
-        source: sourceId,
-        "source-layer": layerId,
-        type: "fill",
-        paint: {
-          "fill-color": "blue",
-          "fill-outline-color": "red",
-          "fill-opacity": 0.3
-        }
-      });
-    });
 ```
 
 ## Putting it all together
@@ -203,7 +177,7 @@ function addPmTilesSourceAndLayer()
   const sourceId = "swiss_gemeinden"
   mapGl.value?.addSource(sourceId, {
     type: "vector",
-    url: "pmtiles://https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles"
+    url: `pmtiles://${PMTILES_URL}`
   });
 
   // add layer

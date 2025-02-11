@@ -85,66 +85,7 @@ As a final step, we are going to add mouse controls over the map. To do so, we i
 ```
 
 ## Putting it all together
-At this point it should be clear that displaying a base-map with MapLibre is rather straightforward and can be achieved with few lines of code. 
-
-The complete example code used in this first tutorial can be found below (you will find the same code in the [index.html](./index.html) file in this folder):
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <title>GeoViz: Displaying a Base Map Using MapLibre</title>
-  <meta property="og:description" content="Displaying a Base Map Using MapLibre" />
-  <meta charset='utf-8'>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- import the maplibre-gl-js stylesheet -->
-  <link rel='stylesheet' href='https://unpkg.com/maplibre-gl@5.0.1/dist/maplibre-gl.css' />
-  <!-- import the maplibre-gl-js library -->
-  <script src='https://unpkg.com/maplibre-gl@5.0.1/dist/maplibre-gl.js'></script>
-  <style>
-    body {
-      margin: 50;
-      padding: 0;
-    }
-
-    html,
-    body,
-    #map {
-      height: 95%;
-    }
-  </style>
-</head>
-
-<body>
-  <h1>Displaying a Base Map Using MapLibre</h1>
-  <!-- This is the div used to insert the map in the page, tagged as "map" -->
-  <div id="map"></div>
-
-  <script>
-    // here we add a map to the div tagged above
-    const map = new maplibregl.Map({
-      container: 'map', // this is the id referring to the "div" in our page body
-      style: 'https://geovizbucket.s3.us-west-2.amazonaws.com/osm_basempa_style.json', // this is the style used to load the basemap
-      center: [8.542810246023732, 47.371741515957304],
-      zoom: 14
-    });
-
-    // add zoom and rotation controls to the map.
-    map.addControl(new maplibregl.NavigationControl({
-        visualizePitch: true,
-        visualizeRoll: true,
-        showZoom: true,
-        showCompass: true
-    }));
-  </script>
-
-</body>
-
-</html>
- ```
-
-If you save the code above in a HTML file you should be able to open it in a browser, resulting in something like the following image:
+At this point it should be clear that displaying a base-map with MapLibre is rather straightforward and can be achieved with few lines of code. The complete example code used in this first tutorial can be found in the [index.html](./index.html) file in this folder. If you open the file in a browser, you should see something like the following image:
 
 ![Displaying a Base Map Using MapLibre](./tutorial_1.png)
 
