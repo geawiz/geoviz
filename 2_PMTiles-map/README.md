@@ -10,34 +10,11 @@ Once the PMTiles file is created, we simply have to drag-and-drop it into the AW
 ## Display a PMTiles file on a Base Map Using MapLibre
 With the file uploaded to the AWS S3 bucket, we can proceed to visualize the data on the base map we have created in the [first tutorial](../1_simple-map//README.md) of this series. 
 
-As a refresher, in the the [first tutorial](../1_simple-map//README.md) we added a ``div`` element to our html page and linked a ``maplibregl.Map`` object to it:
-
-```html
-<body>
-  <h1>Displaying a Base Map Using MapLibre</h1>
-  <!-- This is the div used to insert the map in the page, tagged as "map" -->
-  <div id="map"></div>
-
-  <script>
-    // here we add a map to the div tagged above
-    const map = new maplibregl.Map({
-      container: 'map',
-      style: 'https://geovizbucket.s3.us-west-2.amazonaws.com/osm_basempa_style.json',
-      center: [8.542810246023732, 47.371741515957304],
-      zoom: 14
-    });
-
-    // add controls here
-    // ...
-  </script>
-
-</body>
-```
+As a refresher, in the the [first tutorial](../1_simple-map//README.md) we added a ``div`` element to our html page and linked a ``maplibregl.Map`` object to it. We will keep working with this object, adding a protocol to it that helps us in loading tiles from the file, and rendering data layers on top of the base map.
 
 ### Load the pmtiles protocol
 
-To be able to load our PMTile file, we first need to add the proper protocol to the ``map`` object. That is, we need to add the protocol ``pmtiles`` to the ``map`` object. This can be done by using the [``addProtocol()``](https://maplibre.org/maplibre-gl-js/docs/API/functions/addProtocol/) method of maplibregl, which takes as arguments a protocol type as ``string`` and a [AddProtocolAction()](https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/AddProtocolAction/) function, which is used to register the protocol handler (i.e., the function to use when trying to fetch a tile specified by the protocol). Once the protocol is loaded, we can get from the file header the map 
-center and max zoom level, to better center our map view around the data loaded:
+To be able to load our PMTile file, we first need to add the proper protocol to the ``map`` object. That is, we need to add the protocol ``pmtiles`` to the ``map`` object. This can be done by using the [``addProtocol()``](https://maplibre.org/maplibre-gl-js/docs/API/functions/addProtocol/) method of maplibregl, which takes as arguments a protocol type as ``string`` and a [AddProtocolAction()](https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/AddProtocolAction/) function, which is used to register the protocol handler (i.e., the function to use when trying to fetch a tile specified by the protocol). To center our map view around the data, once the protocol is loaded we can fetch the data center coordinates and maximum zoom level from the file header:
 
 ```html
 <body>
@@ -47,7 +24,7 @@ center and max zoom level, to better center our map view around the data loaded:
     // create the protocol and a source to it
     const protocol = new pmtiles.Protocol()
     // add PM Tiles protocol
-    maplibregl.addProtocol('pmtiles', protocol.tile)
+    maplibregl.addProtocol("pmtiles", protocol.tile)
     // this is the url of your PMTiles file uploaded in the AWS S3 bucket
     const PMTILES_URL = "https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles"
     // Associate a PMTiles instance with the protocol
@@ -58,8 +35,8 @@ center and max zoom level, to better center our map view around the data loaded:
     p.getHeader().then(header => {
       // here we add a map to the div tagged above
       const map = new maplibregl.Map({
-        container: 'map',
-        style: 'https://geovizbucket.s3.us-west-2.amazonaws.com/osm_basempa_style.json',
+        container: "map",
+        style: "https://geovizbucket.s3.us-west-2.amazonaws.com/osm_basempa_style.json",
         center: [header.centerLon, header.centerLat],
         zoom: header.maxZoom - 3
       });
@@ -86,28 +63,28 @@ Once the data is loaded, we can proceed to bind the source and layers to our ``m
     //  Fetch header to center the map
     p.getHeader().then(header => {
       const map = new maplibregl.Map({
-        container: 'map',
-        style: 'https://geovizbucket.s3.us-west-2.amazonaws.com/osm_basempa_style.json',
+        container: "map",
+        style: "https://geovizbucket.s3.us-west-2.amazonaws.com/osm_basempa_style.json",
         center: [header.centerLon, header.centerLat],
         zoom: header.maxZoom - 3,
         style: {
           version: 8,
           sources: {
-            'swiss_gemeinden': {
-              type: 'vector',
-              url: 'pmtiles://https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles'
+            "swiss_gemeinden": {
+              type: "vector",
+              url: "pmtiles://https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles"
             }
           },
           layers: [
             {
-              id: 'gdf_gemeinden',
-              source: 'swiss_gemeinden',
-              'source-layer': 'gdf_gemeinden',
-              type: 'fill',
+              id: "gdf_gemeinden",
+              source: "swiss_gemeinden",
+              "source-layer": "gdf_gemeinden",
+              type: "fill",
               paint: {
-                'fill-color': 'blue',
-                'fill-outline-color': 'red',
-                'fill-opacity': 0.3
+                "fill-color": "blue",
+                "fill-outline-color": "red",
+                "fill-opacity": 0.3
               }
             }
           ]
@@ -126,7 +103,7 @@ As you can see, the source and layers are added to the ``style`` section of the 
 Source and layers can also be added _after_ the creation of the map object. To do so, one can use the [``addSource()``](https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/#addsource) and [``addLayer()``](https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/#addlayer) methods of the ``map`` object, which essentially take as argument the same objects we passed to the ``maplibregl.Map`` object constructor. For example, one can add source and layers in the ``onload``callback of said object:
 
 ``` javascript
-  map.on('load', () => {
+  map.on("load", () => {
       const sourceId = "swiss_gemeinden"
       map.addSource(sourceId, {
         type: "vector",
@@ -138,12 +115,12 @@ Source and layers can also be added _after_ the creation of the map object. To d
       map.addLayer({
         id: layerId,
         source: sourceId,
-        'source-layer': layerId,
-        type: 'fill',
+        "source-layer": layerId,
+        type: "fill",
         paint: {
-          'fill-color': 'blue',
-          'fill-outline-color': 'red',
-          'fill-opacity': 0.3
+          "fill-color": "blue",
+          "fill-outline-color": "red",
+          "fill-opacity": 0.3
         }
       });
     });
@@ -159,12 +136,12 @@ That's it! Display tiled data from a PMTiles files is relatively straightforward
 <head>
   <title>GeoViz: Displaying data from a PMTiles file on a Base Map Using MapLibre</title>
   <meta property="og:description" content="Displaying data from a PMTiles file on a Base Map Using MapLibre" />
-  <meta charset='utf-8'>
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- import the maplibre-gl-js stylesheet -->
-  <link rel='stylesheet' href='https://unpkg.com/maplibre-gl@5.0.1/dist/maplibre-gl.css' />
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.0.1/dist/maplibre-gl.css" />
   <!-- import the maplibre-gl-js library -->
-  <script src='https://unpkg.com/maplibre-gl@5.0.1/dist/maplibre-gl.js'></script>
+  <script src="https://unpkg.com/maplibre-gl@5.0.1/dist/maplibre-gl.js"></script>
   <script src="https://unpkg.com/pmtiles@3.2.0/dist/pmtiles.js"></script>
   <style>
     body {
@@ -189,7 +166,7 @@ That's it! Display tiled data from a PMTiles files is relatively straightforward
     // create the protocol and a source to it
     const protocol = new pmtiles.Protocol()
     // add PM Tiles protocol
-    maplibregl.addProtocol('pmtiles', protocol.tile)
+    maplibregl.addProtocol("pmtiles", protocol.tile)
     // this is the url of your PMTiles file uploaded in the AWS S3 bucket
     const PMTILES_URL = "https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles"
     // Associate a PMTiles instance with the protocol
@@ -200,28 +177,28 @@ That's it! Display tiled data from a PMTiles files is relatively straightforward
     p.getHeader().then(header => {
       // here we add a map to the div tagged above
       const map = new maplibregl.Map({
-        container: 'map',
-        style: 'https://geovizbucket.s3.us-west-2.amazonaws.com/osm_basempa_style.json',
+        container: "map",
+        style: "https://geovizbucket.s3.us-west-2.amazonaws.com/osm_basempa_style.json",
         center: [header.centerLon, header.centerLat],
         zoom: header.maxZoom - 3,
         style: {
           version: 8,
           sources: {
-            'swiss_gemeinden': {
-              type: 'vector',
-              url: 'pmtiles://https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles'
+            "swiss_gemeinden": {
+              type: "vector",
+              url: "pmtiles://https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles"
             }
           },
           layers: [
             {
-              id: 'gdf_gemeinden',
-              source: 'swiss_gemeinden',
-              'source-layer': 'gdf_gemeinden',
-              type: 'fill',
+              id: "gdf_gemeinden",
+              source: "swiss_gemeinden",
+              "source-layer": "gdf_gemeinden",
+              type: "fill",
               paint: {
-                'fill-color': 'blue',
-                'fill-outline-color': 'red',
-                'fill-opacity': 0.3
+                "fill-color": "blue",
+                "fill-outline-color": "red",
+                "fill-opacity": 0.3
               }
             }
           ]
@@ -264,10 +241,10 @@ Below you find the complete code, which is also included in the [Map.vue](./Map.
 
 <script setup lang="ts">
 
-import { onMounted, ref } from 'vue'
-import maplibregl from 'maplibre-gl'
-import { Protocol, PMTiles } from 'pmtiles'
-import 'maplibre-gl/dist/maplibre-gl.css'
+import { onMounted, ref } from "vue"
+import maplibregl from "maplibre-gl"
+import { Protocol, PMTiles } from "pmtiles"
+import "maplibre-gl/dist/maplibre-gl.css"
 
 // we declare the maplibregl.Map object here, as in more complex components
 // you may want to access the objects from other method
@@ -281,12 +258,12 @@ onMounted(async () => {
 
   // create the map object, bind it to the 'map' div in the template
   mapGl.value = new maplibregl.Map({
-    container: 'map',
-    style: 'https://geovizbucket.s3.us-west-2.amazonaws.com/osm_basempa_style.json'
+    container: "map",
+    style: "https://geovizbucket.s3.us-west-2.amazonaws.com/osm_basempa_style.json"
   })
 
   // add controls
-  mapGl.value?.addControl(new maplibregl.NavigationControl(), 'top-right')
+  mapGl.value?.addControl(new maplibregl.NavigationControl(), "top-right")
 
   // zoom center the map
   const header = await p.getHeader()
@@ -302,7 +279,7 @@ function addPMTilesProtocol()
   // create a protocol and a source(s) to it
   const protocol = new Protocol()
   // add PM Tiles protocol
-  maplibregl.addProtocol('pmtiles', protocol.tile)
+  maplibregl.addProtocol("pmtiles", protocol.tile)
   const PMTILES_URL = "https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles"
   const p = new PMTiles(PMTILES_URL)
   protocol.add(p)
@@ -315,7 +292,7 @@ function addPmTilesSourceAndLayer()
   const sourceId = "swiss_gemeinden"
   mapGl.value?.addSource(sourceId, {
     type: "vector",
-    url: 'pmtiles://https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles'
+    url: "pmtiles://https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles"
   });
 
   // add layer
@@ -323,12 +300,12 @@ function addPmTilesSourceAndLayer()
   mapGl.value?.addLayer({
     id: layerId,
     source: sourceId,
-    'source-layer': layerId,
-    type: 'fill',
+    "source-layer": layerId,
+    type: "fill",
     paint: {
-      'fill-color': 'blue',
-      'fill-outline-color': 'red',
-      'fill-opacity': 0.3
+      "fill-color": "blue",
+      "fill-outline-color": "red",
+      "fill-opacity": 0.3
     }
   });
 }
