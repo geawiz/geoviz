@@ -100,7 +100,11 @@ Maplibre has an excellent documentation. To find out more about raster sources f
 ## Putting it all together
 That's it! Display tiled data from a COG file is relatively straightforward and can be achieved in few simple steps. As before, the complete example code used in this tutorial can be found in the [index.html](./index.html) file in this folder. Opening it in a browser should render something like the following image:
 
-![Displaying data from a PMTiles file on a Base Map Using MapLibre](./tutorial_3.png)
+![Displaying data from a COG file on a Base Map Using MapLibre](./tutorial_3_1.png)
+
+Zooming on an edge between the base map and the COG data overlay, one can see the alignment of the two:
+
+![COG data overlayed on the base map](./tutorial_3_2.png)
 
 ## Bonus: a Vue 3 component to display a PMTiles file on a Base Map Using MapLibre
 As for the [second tutorial](../2_PMTiles-map/) we are going to illustrate how to achieve the same steps detailed above in a Vue 3 component. Also for this case the steps for displaying data from a COG file on a base-map in your page/app using Vue 3 are the same as the ones detailed for the HTML case: add the ``cog`` protocol, link it to the ``map`` object in your component and finally add a ``source`` and ``layers` to it. Is that simple!
