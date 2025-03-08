@@ -160,7 +160,7 @@ onMounted(async () => {
   addPmTilesSourceAndLayer(PMTILES_URL)
 })
 
-function addPMTilesProtocol()
+function addPMTilesProtocol(pmtiles_url: string)
 {
   // create a protocol and a source(s) to it
   const protocol = new Protocol(pmtiles_url: string)

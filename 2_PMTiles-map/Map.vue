@@ -49,8 +49,7 @@ function addPMTilesProtocol(pmtiles_url: string)
   const protocol = new Protocol()
   // add PM Tiles protocol
   maplibregl.addProtocol('pmtiles', protocol.tile)
-  const PMTILES_URL = "https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles"
-  const p = new PMTiles(PMTILES_URL)
+  const p = new PMTiles(pmtiles_url)
   protocol.add(p)
   return p
 }
