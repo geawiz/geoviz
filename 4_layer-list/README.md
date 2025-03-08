@@ -21,7 +21,7 @@ With the scripts loaded, we can then go ahead and add both protocols to our ``ma
    <!-- code declaring a div goes here -->
 
   <script>
-    // create the PMTiles rotocol and a source to it
+    // create the PMTiles protocol and a source to it
     const protocol = new pmtiles.Protocol()
     // add PM Tiles protocol
     maplibregl.addProtocol("pmtiles", protocol.tile)
@@ -126,9 +126,153 @@ Finally, we can add the source and layers for both protocols:
 
 The final result should look like the following image:
 
-![Displaying data from a COG file on a Base Map Using MapLibre](./tutorial_4_1.png)
+![Displaying data from a PMTiles and COG files on a Base Map Using MapLibre](./tutorial_4_1.png)
 
 ## Toggling layers
 The HTML code above renders the data _simultaneously_ and on top of each other. While this allows us to see all the sources at once, there are certain situations when being able to toggle layers on and off can be beneficial to understand out data. Therefore, to dynamically render a layer, we can use Maplibre Map object method [setLayoutProperty](https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/#setlayoutproperty). With this method we can set the value of a layout property; one such property is the ``visibility`` field, which controls whether a layer is rendered or not using the values ``visible`` or ``none``, respectively.
 
-So, the first step to 
+To control the visibility we are going to add to the map a list of checkboxes. As we are using plain HTML, we will render a checkbox using a ``input`` element and a ``label`` element, linking its ``checked`` status to the layer visibility:
+
+```html
+<div>
+  <input type="checkbox" id="my-toggle">
+  <label for="my-toggle">Toggle me!</label>
+</div>
+```
+
+Back to our example, first we are going to declare the layers names outside of the ``map.on('load')`` callback, as we will reuse those variables later on to setup the checkboxes. We are then going to add the checkboxes to our map in the ``map.on('idle')`` callback, paying attention to do this only once, as this callback is actually executed on each re-render of the map (e.g., when zooming or panning). In order to create exactly one checkbox per layer, we iterate over all the layers added to the map, and for each we add an ``input`` and ``label`` element. To link it to the actual layer, we assign the layer name to the ``input`` id, as this will be useful later on when interacting with the element:
+
+```html
+<body>
+   <!-- code declaring a div goes here -->
+
+  <script>
+    // create the protocol and a source to it
+    //...
+    const PMTILES_URL = "https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles"
+    // ...
+
+    // here we add a map to the div tagged above
+    //  Fetch header to center the map
+    p.getHeader().then(header => {
+      const map = new maplibregl.Map({
+        container: "map",
+        style: "https://geovizbucket.s3.us-west-2.amazonaws.com/osm_basempa_style.json",
+        center: [header.centerLon, header.centerLat],
+        zoom: header.maxZoom - 3,
+      });
+      // add controls here
+      // ...
+
+      // we declare the layers name here, as they will be used later on in the building the checkboxes
+      const pmtiles_sourceId = "swiss_gemeinden";
+      const pmtiles_layerId = "gdf_gemeinden";
+      const cog_sourceId = 'imageSource'
+      const cog_layerId = 'imageLayer'
+
+      // add sources + layers
+      map.on('load', () => {
+        // add sources and layers
+        // ...
+      });
+
+      // once the map is in idle, we start assembling the checkboxes
+      map.on('idle', () => {
+
+        // here we declare the layers we want to make toggable and their title to show in screen
+        const layersId = [pmtiles_layerId, cog_layerId];
+        const layersTitle = ['pmtiles', 'cog'];
+
+        // for each layer we setup a checkbox
+        for (const [index, id] of layersId.entries()){
+            // Avoid re-adding the layers each time the map is rendered
+            if (document.getElementById(id)) {
+                continue;
+            }
+
+            // Create a checkbox.
+            const div = document.createElement('div');
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox'
+            checkbox.id = id; // this id matches the layer name, and links this element to the layer
+            checkbox.checked = map.getLayoutProperty(id, 'visibility') === 'visible'; // set the initial value of the checkbox depending on whether the layer is currently shown or not
+            // add a label for it
+            const label = document.createElement('label');
+            label.id = 'toggle_' + id;
+            label.for = id;
+            label.textContent = layersTitle[index];
+            // add to the checkbox list in the page
+            const checkboxes = document.getElementById('checkboxes');
+            checkboxes.appendChild(div);
+            div.appendChild(checkbox);
+            div.appendChild(label)
+        }
+      });
+    });
+  </script>
+
+</body>
+```
+
+Finally, we need to setup the interaction between the checkboxes and the layers rendering. This is done by adding some logic to the ``checkbox.onclick()`` callback, which is the function that gets executed each time the input element is clicked. The idea here is to link the ``checked`` value of the checkbox to the ``visibility`` property of the layer associated to it, via a call to the ``setLayoutProperty()`` method of the ``map`` element.  
+
+```html
+<body>
+  <script>
+
+      // ...
+
+      // once the map is in idle, we start assembling the checkboxes
+      map.on('idle', () => {
+
+        // here we declare the layers we want to make toggable and their title to show in screen
+        const layersId = [pmtiles_layerId, cog_layerId];
+        const layersTitle = ['pmtiles', 'cog'];
+
+        // for each layer we setup a checkbox
+        for (const [index, id] of layersId.entries()){
+
+            // Create a checkbox.
+            // ...
+
+            // react on checkbox interaction -> click
+            checkbox.onclick = function (e) {
+                const clickedLayer = this.id;
+                const checked = this.checked;
+                const visibility = checked ? "visible" : "none"
+                map.setLayoutProperty(clickedLayer, 'visibility', visibility);
+            };
+
+            // add to the checkbox list in the page
+            // ...
+        }
+      });
+
+    // ...
+  </script>
+
+</body>
+```
+
+## Putting it all together
+That's it! You can now choose which layer to choose by toggling its name on the checkbox list in the upper right corner of the map. As before, the complete example code used in this tutorial can be found in the [index.html](./index.html) file in this folder. Opening it in a browser should render something like the following image:
+
+![Toggling layers on a MapLibre map](./tutorial_4_2.png)
+
+## Bonus: a Vue 3 component to display a PMTiles file on a Base Map Using MapLibre
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
