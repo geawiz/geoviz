@@ -1,4 +1,4 @@
-# Dynamically display map layers using checkbox buttons
+# Dynamically display map layers using checkboxes
 In this module we will go through the steps required to dynamically show or hide the data layers on the map we have been building so far. This module then will first show you how to combine the layers of a [PMTiles](./../2_PMTiles-map/) and a [COG](./../3_Cloud-Optimized-GeoTIFF/) data sources, and will then illustrate how to dynamically render the two.
 
 ## Rendering PMTiles and COG files simultaneously
@@ -259,20 +259,7 @@ That's it! You can now choose which layer to choose by toggling its name on the 
 
 ![Toggling layers on a MapLibre map](./tutorial_4_2.png)
 
-## Bonus: a Vue 3 component to display a PMTiles file on a Base Map Using MapLibre
+## Bonus: a Vue 3 component to dynamically display map layers using checkboxes
+As for previous tutorials we are going to illustrate how to achieve the same steps detailed above in a Vue 3 component. The [reactivity](https://vuejs.org/guide/essentials/reactivity-fundamentals.html) nature of Vue components is actually particularly suited to the task of dynamically render layers. While the steps to achieve this are quite similar the HTML case, we will leverage Vue [``ref``](https://vuejs.org/guide/essentials/reactivity-fundamentals.html#ref) variable and [``watchers``](https://vuejs.org/guide/essentials/watchers.html) to monitor the state of the checkboxes and react to any changes.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+As this code example is a little longer and more complex than previous ones, we decided to avoid pasting it here. Instead, please find the complete example in the [Map.vue](./Map.vue) file in this tutorial folder:
