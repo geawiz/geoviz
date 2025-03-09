@@ -32,7 +32,7 @@
         }
       },
       {
-        "screenName": "COG GEOTiff",
+        "screenName": "COG (GEOTiff)",
         "protocol": "cog",
         "source": {
           "name": "imageSource",
