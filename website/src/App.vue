@@ -12,13 +12,12 @@
             no-gutters
           >
           <h1>GeoViz</h1>
-          <h2>A collection of tutorials on how to display vector and raster Tiles on the web.</h2>
-          
-          <div v-for="(tutorial, i) in tutorials" :key="i">
-            <TutorialCard
+          <h2>A collection of <a href="https://github.com/geawiz/geoviz" target="_blank">tutorials</a> on how to display vector and raster tiles on the web.</h2>
+
+            <TutorialCard v-for="(tutorial, i) in tutorials" :key="i"
               :tutorial="tutorial"
             ></TutorialCard>
-          </div>
+
           </v-col>
           <v-spacer></v-spacer>
         </v-row>
@@ -57,6 +56,15 @@ const tutorials = computed(() => {
 .footer-item a {
     color: rgba(var(--v-theme-on-surface) ,0.65);
 }
+
+.themed {
+  background-color:blue;
+}
+
+.themed2 {
+  background-color:red;
+}
+
 
 .themed-appbar {
   background-color: rgba(var(--v-theme-background), 0.75);
