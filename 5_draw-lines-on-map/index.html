@@ -110,7 +110,7 @@
     <div class="map-overlay-inner">
         <fieldset>
             <label>Choose a color for the lines</label>
-            <div id="swatches"></div>
+            <div id="colorpicker"></div>
         </fieldset>
     </div>
   </div>
@@ -281,7 +281,7 @@
       });
 
       // setup the colors
-      const swatches = document.getElementById('swatches');
+      const colorpicker = document.getElementById('colorpicker');
       const colors = [
           '#ffffcc',
           '#a1dab4',
@@ -301,7 +301,7 @@
           swatch.addEventListener('click', () => {
             map.setPaintProperty(route_layerId, 'line-color', swatch.style.backgroundColor);
           });
-          swatches.appendChild(swatch);
+          colorpicker.appendChild(swatch);
       });
 
     });

@@ -12,7 +12,7 @@ This repo provides a practical, hands-on approach to display maps on the Web. We
 | [Working with PMTiles files](./2_PMTiles-map) | Learn how to create `PMTiles` files from vector data and display them on a map using the `pmtiles` protocol | ✅ |
 | [Working with Cloud Optimized GEOTiff files](./3_Cloud-Optimized-GeoTIFF) | Learn how to access `COG` files to display data on a base map | 🚧 WIP |
 | [Dynamically render layers](./4_layer-list) | Create a list of checkboxes that dynamically render the available layers on a base map | ✅ | 
-| [Draw lines and contours on a map](./4_layer-list) | Draw lines and contours from user mouse clicks | ✅ | 
+| [Draw lines and contours on a map](./5_draw-lines-on-map) | Draw lines and contours from user mouse clicks | ✅ | 
 
 ## Prerequisites
 Before starting, ensure you have the following:
