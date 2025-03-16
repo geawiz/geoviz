@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>GeoViz: Draw a route on a map</title>
+  <meta property="og:description" content="Draw a route on a map" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- import the maplibre-gl-js stylesheet -->
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.0.1/dist/maplibre-gl.css" />
+  <!-- import the maplibre-gl-js library -->
+  <script src="https://unpkg.com/maplibre-gl@5.0.1/dist/maplibre-gl.js"></script>
+  <script src="https://unpkg.com/pmtiles@3.2.0/dist/pmtiles.js"></script>
+  <script src="https://unpkg.com/@geomatico/maplibre-cog-protocol/dist/index.js"></script>
+  <style>
+    </style>
+      <style>
+        body {
+          margin: 50;
+          padding: 0;
+        }
+    
+        #map {
+          position: absolute;
+          height: 93%;
+          width: 100%;
+        }
+      </style>
+</head>
+
+<body>
+  <style>
+
+    #checkboxes {
+        background: #fbf5f5;
+        position: absolute;
+        z-index: 1;
+        top: 100px;
+        right: 5px;
+        padding-left: 5px;
+        padding-right: 5px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        border-radius: 3px;
+        width: 150px;
+        border: 1px solid rgba(0, 0, 0, 0.4);
+        font-family: 'Open Sans', sans-serif;
+        font-size: large;
+    }
+
+    .map-overlay {
+        font: 12px/20px 'Open Sans', sans-serif;
+        position: absolute;
+        width: 200px;
+        top: 180px;
+        right: 0px;
+        padding: 10px;
+    }
+
+    .map-overlay .map-overlay-inner {
+        background-color: #fff;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        border-radius: 3px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .map-overlay-inner fieldset {
+        border: none;
+        padding: 0;
+        margin: 0 0 10px;
+    }
+
+    .map-overlay-inner fieldset:last-child {
+        margin: 0;
+    }
+
+    .map-overlay-inner select {
+        width: 100%;
+    }
+
+    .map-overlay-inner label {
+        display: block;
+        font-weight: bold;
+        margin: 0 0 5px;
+    }
+
+    .map-overlay-inner button {
+        display: inline-block;
+        width: 36px;
+        height: 20px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .map-overlay-inner button:focus {
+        outline: none;
+    }
+
+    .map-overlay-inner button:hover {
+        box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.1);
+    }
+
+  </style>
+  <h1>Draw a route on a map</h1>
+  <nav id="checkboxes"></nav>
+  <!-- This is the div used to insert the map in the page, tagged as "map" -->
+  <div id="map"></div>
+  <div class="map-overlay top">
+    <div class="map-overlay-inner">
+        <fieldset>
+            <label>Choose a color for the lines</label>
+            <div id="colorpicker"></div>
+        </fieldset>
+    </div>
+  </div>
+  <script>
+
+    // create the PMTiles rotocol and a source to it
+    const protocol = new pmtiles.Protocol()
+    // add PM Tiles protocol
+    maplibregl.addProtocol("pmtiles", protocol.tile)
+    // this is the url of your PMTiles file uploaded in the AWS S3 bucket
+    const PMTILES_URL = "https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles"
+    // Associate a PMTiles instance with the protocol
+    const p = new pmtiles.PMTiles(PMTILES_URL)
+    protocol.add(p)
+    
+    // create the COG protocol
+    maplibregl.addProtocol('cog', MaplibreCOGProtocol.cogProtocol);
+
+    //  Fetch header to center the map
+    p.getHeader().then(header => {
+      // here we add a map to the div tagged above
+      const map = new maplibregl.Map({
+        container: "map",
+        style: 'https://geovizbucket.s3.us-west-2.amazonaws.com/osm_basempa_style.json',
+        center: [header.centerLon, header.centerLat],
+        zoom: header.maxZoom - 3,
+      });
+
+      // add zoom and rotation controls to the map.
+      map.addControl(new maplibregl.NavigationControl({
+        visualizePitch: true,
+        visualizeRoll: true,
+        showZoom: true,
+        showCompass: true
+      }), 'top-left');
+
+      // we declare the layers name here, as they will be used later on in the building the checkboxes
+      const pmtiles_sourceId = "swiss_gemeinden"
+      const pmtiles_layerId = "gdf_gemeinden"
+      const cog_sourceId = 'imageSource'
+      const cog_layerId = 'imageLayer'
+      const route_sourceId = 'route'
+      const route_layerId = 'route'
+      const data = {
+          'type': 'Feature',
+          'properties': {},
+          'geometry': {
+              'type': 'LineString',
+              'coordinates': []
+          }
+        }
+
+      // add sources + layers
+      map.on('load', () => {
+
+        // add PMTiles source
+        map.addSource(pmtiles_sourceId, {
+          type: "vector",
+          url: `pmtiles://${PMTILES_URL}`
+        });
+        // add PMTiles layer
+        
+        map.addLayer({
+          id: pmtiles_layerId,
+          source: pmtiles_sourceId,
+          "source-layer": pmtiles_layerId,
+          layout: {
+            // Make the layer visible by default.
+            visibility: 'visible'
+          },
+          type: "fill",
+          paint: {
+            "fill-color": "blue",
+            "fill-outline-color": "red",
+            "fill-opacity": 0.3
+          }
+        });
+
+        // add COG source
+        map.addSource(cog_sourceId, {
+          type: 'raster',
+          url: 'cog://https://geovizbucket.s3.us-west-2.amazonaws.com/output_cog_small_jpeg.tif',
+          tileSize: 512,
+          minzoom: 5,
+          maxzoom: 20
+        });
+        // add COG layer
+        map.addLayer({
+          id: cog_layerId,
+          source: cog_sourceId,
+          type: 'raster',
+          layout: {
+            // Make the layer visible by default.
+            visibility: 'visible'
+          },
+          paint: {
+            'raster-opacity': 0.7
+          }
+        });
+        map.setLayoutProperty(cog_layerId, 'visibility', 'visible');
+
+        map.addSource(route_sourceId, {
+            type: 'geojson',
+            data: data
+        });
+        map.addLayer({
+            id: route_layerId,
+            type: 'line',
+            source: route_sourceId,
+            layout: {
+                visibility: 'visible',
+                'line-join': 'round',
+                'line-cap': 'round'
+            },
+            paint: {
+                'line-color': '#888',
+                'line-width': 8
+            }
+        });
+        map.setLayoutProperty(route_layerId, 'visibility', 'visible');
+      });
+
+    // once the map is in idle, we start assembling the checkboxes
+    map.on('idle', () => {
+
+        // here we declare the layers we want to make toggable and theor title to show in screen
+        const layersId = [pmtiles_layerId, cog_layerId, route_layerId];
+        const layersTitle = ['pmtiles', 'cog', 'route'];
+
+        // for each layer we setup a checkbox
+        for (const [index, id] of layersId.entries()){
+            // Avoid re-adding the layers each time the map is rendered
+            if (document.getElementById(id)) {
+                continue;
+            }
+
+            // Create a checkbox.
+            const div = document.createElement('div');
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox'
+            checkbox.id = id;
+            checkbox.checked = map.getLayoutProperty(id, 'visibility') === 'visible';
+            // add a label for it
+            const label = document.createElement('label');
+            label.id = 'toggle_' + id;
+            label.for = id;
+            label.textContent = layersTitle[index];
+            // react on checkbox interaction -> click
+            checkbox.onclick = function (e) {
+                const clickedLayer = this.id;
+                const checked = this.checked;
+                const visibility = checked ? "visible" : "none"
+                map.setLayoutProperty(clickedLayer, 'visibility', visibility);
+            };
+            // add to the checkbox list in the page
+            const checkboxes = document.getElementById('checkboxes');
+            checkboxes.appendChild(div);
+            div.appendChild(checkbox);
+            div.appendChild(label)
+        }
+      });
+
+      map.on('click', (e) => {
+        const data = map.getSource(route_layerId)._data;
+        const coord = e.lngLat.wrap()
+        data.geometry.coordinates.push([coord.lng, coord.lat])
+        map.getSource(route_layerId).setData(data);
+      });
+
+      // setup the colors
+      const colorpicker = document.getElementById('colorpicker');
+      const colors = [
+          '#ffffcc',
+          '#a1dab4',
+          '#41b6c4',
+          '#2c7fb8',
+          '#253494',
+          '#fed976',
+          '#feb24c',
+          '#fd8d3c',
+          '#f03b20',
+          '#bd0026'
+      ];
+
+      colors.forEach((color) => {
+          const swatch = document.createElement('button');
+          swatch.style.backgroundColor = color;
+          swatch.addEventListener('click', () => {
+            map.setPaintProperty(route_layerId, 'line-color', swatch.style.backgroundColor);
+          });
+          colorpicker.appendChild(swatch);
+      });
+
+    });
+
+  </script>
+
+</body>
+
+</html>
