@@ -1,6 +1,6 @@
 
 # GeoViz Tutorials
-This repository is a collection of tutorials that should help you rendering maps on the Web. The main objective of these tutorials is to illustrate how to add layers of data to base maps. For this, we will be using the amazing [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js) library. Most of the tutorials will have code examples in two different flavour: plain HTML, as well as [Vue 3](https://vuejs.org) components.
+This repository is a collection of tutorials that should help you rendering maps on the Web. The main objective of these tutorials is to illustrate how to add layers of data to base maps. For this, we will be using the amazing [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js) library.
 Our tutorials emphasize a modern, serverless approach to web mapping. Rather than depending on dedicated map servers (like GeoServer or MapServer), we:
 - Store processed raster and vector data economically on cloud-based storage solutions (Amazon S3).
 - Utilize client-side rendering capabilities of [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js) for efficient, scalable, and cost-effective mapping.
@@ -10,7 +10,7 @@ To follow along, we tried to limit hardware requirements and local software depe
 - [Google Colab](https://colab.google) for data processing.
 - [Amazon S3](https://aws.amazon.com/s3/) or similar object storage to host your data.
 
-Let's get started creating interactive, beautiful, and scalable web maps!
+Most of the tutorials will have code examples in two different flavour: plain HTML, as well as [Vue 3](https://vuejs.org) components.Data preparation will be done in Python. Let's get started creating interactive, beautiful, and scalable web maps!
 
 ## Tutorial outline
 This repo provides a practical, hands-on approach to display maps on the Web. We will cover all the steps involved in displaying data localized on maps, in an incremental fashion. 
