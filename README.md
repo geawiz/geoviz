@@ -5,14 +5,9 @@ Our tutorials emphasize a modern, serverless approach to web mapping. Rather tha
 - Store processed raster and vector data economically on cloud-based storage solutions (Amazon S3).
 - Utilize client-side rendering capabilities of [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js) for efficient, scalable, and cost-effective mapping.
 
-To follow along, we tried to limit hardware requirements and local software dependencies. All you need is:
-- [GitHub pages](https://pages.github.com) to host your website.
-- [Google Colab](https://colab.google) for data processing.
-- [Amazon S3](https://aws.amazon.com/s3/) or similar object storage to host your data.
-
 Most of the tutorials will have code examples in two different flavour: plain HTML, as well as [Vue 3](https://vuejs.org) components.Data preparation will be done in Python. Let's get started creating interactive, beautiful, and scalable web maps!
 
-## Tutorial outline
+## Tutorial Outline
 This repo provides a practical, hands-on approach to display maps on the Web. We will cover all the steps involved in displaying data localized on maps, in an incremental fashion. 
 
 | Module | Description | Status |
@@ -26,13 +21,15 @@ This repo provides a practical, hands-on approach to display maps on the Web. We
 ## Prerequisites
 Before starting, ensure you have the following:
 - Basic understanding of maps and HTML/Web development.
-- Familiarity with Python, HTML/Vue and the [GeoPandas](https://geopandas.org/en/stable/) library.
-- Access to a AWS S3 bucket for some of the tutorials (more info in the [Getting Started](./0_getting-started) tutorial).
+- Familiarity with Python, HTML/Vue.
+and make sure you have access to those tools:
+- [GitHub pages](https://pages.github.com) to host your website.
+- [Google Colab](https://colab.google) for data processing.
+- [Amazon S3](https://aws.amazon.com/s3/) or similar object storage to host your data.
+We aim for a purely cloud-based approach and tried to limit prerequisites.
 
 ## Tech stack
-
 The tutorials in this repository leverage the following tech stack
-
 - Python3 and shell scripts for [data processing](./dataprocessing).
 -  [Vue 3](https://vuejs.org), TypeScript, [Vuetify](https://vuetifyjs.com/en/) and [Vite](https://vitejs.dev) to build the tutorials [website](./site).
 
