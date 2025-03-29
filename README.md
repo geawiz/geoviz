@@ -1,4 +1,3 @@
-
 # GeoViz Tutorials
 This repository is a collection of tutorials that should help you rendering maps on the Web. The main objective of these tutorials is to illustrate how to add layers of data to base maps. For this, we will be using the amazing [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js) library.
 Our tutorials emphasize a modern, serverless approach to web mapping. Rather than depending on dedicated map servers (like GeoServer or MapServer), we:
@@ -22,13 +21,15 @@ This repo provides a practical, hands-on approach to display maps on the Web. We
 Before starting, ensure you have the following:
 - Basic understanding of maps and HTML/Web development.
 - Familiarity with Python, HTML/Vue.
-and make sure you have access to those tools:
+ 
+And make sure you have access to the following tools:
 - [GitHub pages](https://pages.github.com) to host your website.
 - [Google Colab](https://colab.google) for data processing.
 - [Amazon S3](https://aws.amazon.com/s3/) or similar object storage to host your data.
-We aim for a purely cloud-based approach and tried to limit prerequisites.
 
-## Tech stack
+We aim for a cloud-based approach and tried to limit prerequisites.
+
+## Tech Stack
 The tutorials in this repository leverage the following tech stack
 - Python3 and shell scripts for [data processing](./dataprocessing).
 -  [Vue 3](https://vuejs.org), TypeScript, [Vuetify](https://vuetifyjs.com/en/) and [Vite](https://vitejs.dev) to build the tutorials [website](./site).
