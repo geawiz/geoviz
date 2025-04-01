@@ -3,7 +3,7 @@
 ## Introduction
 In this tutorial we are going to display a base map in our HTML page using [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/). For the [HTML example](#putting-it-all-together) we will use the CDN distribution of the library. For the [Vue example](#bonus-a-vue-3-component-to-display-a-base-map-using-maplibre) we assume you have installed the library via ``pnpm`` (or ``npm``) (see [here](./../website/package.json) for a ``package.json`` example file).
 
-## Adding a DIV as map container
+## Adding a DIV as Map Container
 To add a map to our page, as a first step we are going to declare a ``div`` element that will act as the map container. Additionally, we are going to tag the ``div`` with a specific ``id`` to later reference it in the page script. The code below shows a very simply HTML body, with a header and a ``div`` in it:
 
 ```html
@@ -14,7 +14,7 @@ To add a map to our page, as a first step we are going to declare a ``div`` elem
 </body>
 ```
 
-## Linking the DIV with a maplibregl Map element
+## Linking the DIV With a Maplibregl Map Element
 Once the ``div`` is declared ans tagged, we need to bind it to a [``maplibregl.Map``](https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/) object. To do so, add the following code to your script section of the HTML page:
 
 ```html
@@ -62,7 +62,7 @@ Concretely, the style linked in the example below contains the following propert
 ```
 This style JSON instructs Maplibre to load raster tiles of size 256x256 pixels from OpenStreetMap (and correctly credit its contributors). Additionally, the only layer we are going to display for this map is the ``osm-basemap``.
 
-## Adding controls to the map
+## Adding Controls to the Map
 As a final step, we are going to add mouse controls over the map. To do so, we invoke the [``addControl``](https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/#addcontrol) method of our ``map`` object.
 
 ```html
@@ -84,12 +84,12 @@ As a final step, we are going to add mouse controls over the map. To do so, we i
 </body>
 ```
 
-## Putting it all together
+## Putting it All Together
 At this point it should be clear that displaying a base-map with MapLibre is rather straightforward and can be achieved with few lines of code. The complete example code used in this first tutorial can be found in the [index.html](./index.html) file in this folder. If you open the file in a browser, you should see something like the following image:
 
 ![Displaying a Base Map Using MapLibre](./tutorial_1.png)
 
-## A Vue.js component to display a base-map using MapLibre
+## A Vue.js Component to Display a Base Map Using MapLibre
 While it is important to understand the basics of adding a MapLibre base-map to a HTML page, a perhaps more modern way of achieving the same is through a [Vue.js](https://vuejs.org) component. Specifically, we are going to use Vue 3 and its [composition API](https://vuejs.org/guide/introduction.html#composition-api), which can then also be used as the blue-print for other modern reactive UI frameworks.
 
 The steps for displaying a base-map using Vue component are identical to the ones detailed for the HTML case. First we declare and tag a ``div`` in the body of the page. We then bind it to a [``maplibregl.Map``](https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/) object in the ``onMounted()`` [lifecycle hook](https://vuejs.org/api/composition-api-lifecycle#onmounted) of the component, and we then finally add mouse controls over the rendered map.

@@ -51,7 +51,7 @@ Warning: By defining this policy anybody can read all files in your bucket `<nam
 
 Alternative object storage such as e.g. [Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs) offer similar capabilities.
 
-## Setting up Python Environments for data processing
+## Setting up Python Environments for Data Processing
 We use Jupyter Notebooks in those two tutorials [Working with PMTiles files](../2_PMTiles-map), [Working with Cloud Optimized GEOTiff files](../3_Cloud-Optimized-GeoTIFF). We suggest using [conda](https://docs.conda.io/en/latest/) to manage your environment. Create a new environment and activate it:
 ```
 $ conda create -n geoviz python=3.9
@@ -63,7 +63,7 @@ $ conda install -c conda-forge rasterio geopandas ipykernel --strict-channel-pri
 ```
 We use `--strict-channel-priority` to have a more predictable and controlled environment resolution process, at the cost of potentially fewer package/version options. 
 
-## Install tippecanoe to create PM Vector Tiles
+## Install Tippecanoe to Create PM Vector Tiles
 On OSX system, use [Homebrew](http://brew.sh/) to install ``tippecanoe``:
 ```sh
 $ brew install tippecanoe
@@ -77,7 +77,7 @@ $ make install
 ```
 More info can be obtained on the [tippecanoe website](https://github.com/mapbox/tippecanoe?tab=readme-ov-file#installation).
 
-## Optional: Build the tutorials website
+## Optional: Build the Tutorials Website
 The tutorials in this repository are accompanied by a [website](https://geawiz.github.io/geoviz/) that illustrates their final results. In the interest of simplicity, the tutorials HTML/Vue example are a simplified version of the code used to run the website.   
 
 As such, the [website](site) folder presents a more complex working template to run (and develop) a static site capable of display maps and data, built using [Vue 3](https://vuejs.org), TypeScript, [Vuetify](https://vuetifyjs.com/en/) and [Vite](https://vitejs.dev).
@@ -96,7 +96,7 @@ From there, install all dependencies by running:
 $ pnpm install
 ```` 
 
-#### Build the development version of the site
+#### Build the Development Version of the Site
 
 To develop/test the website locally, run:
 ````sh
@@ -105,7 +105,7 @@ $ npm run dev
 
 This command will start a development version of the website, reachable at the address [http://localhost:3333](http://localhost:3333). The development version of the website allows you to use hot-reloading to inspect on the fly changes made on the code.
 
-#### Deploy the site
+#### Deploy the Site
 
 When happy with the local changes, you can compile the development website into a production ready, static site. To do so run: 
 ````sh

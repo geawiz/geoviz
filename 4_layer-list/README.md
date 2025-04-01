@@ -1,7 +1,7 @@
-# Dynamically display map layers using checkboxes
+# Dynamically Display Map Layers Using Checkboxes
 In this module we will go through the steps required to dynamically show or hide the data layers on the map we have been building so far. This module then will first show you how to combine the layers of a [PMTiles](./../2_PMTiles-map/) and a [COG](./../3_Cloud-Optimized-GeoTIFF/) data sources, and will then illustrate how to dynamically render the two.
 
-## Rendering PMTiles and COG files simultaneously
+## Rendering PMTiles and COG Files Simultaneously
 As we have previously learnt, the first step to load data from either a [PMTiles](./../2_PMTiles-map/) or a [COG](./../3_Cloud-Optimized-GeoTIFF/) files is to correctly load the protocols scripts in the Head of our HTML page:
 
 ```html
@@ -128,7 +128,7 @@ The final result should look like the following image:
 
 ![Displaying data from a PMTiles and COG files on a Base Map Using MapLibre](./tutorial_4_1.png)
 
-## Toggling layers
+## Toggling Layers
 The HTML code above renders the data _simultaneously_ and on top of each other. While this allows us to see both layers at once, there are certain situations when being able to toggle them on and off can be beneficial to understand our data. To dynamically render a layer, use the [setLayoutProperty](https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/#setlayoutproperty) method on the MapLibre Map object. By setting the layer’s ``visibility`` property to either ``visible`` or ``none``, you can control whether the layer is rendered on the map.
 
 To control the visibility we are going to add a list of checkboxes to the map. As we are using plain HTML, we will render a checkbox using a ``input`` element and a ``label`` element, linking its ``checked`` status to the layer visibility:
@@ -255,12 +255,12 @@ Finally, we need to setup the interaction between the checkboxes and the layers 
 </body>
 ```
 
-## Putting it all together
+## Putting it All Together
 That's it! You can now choose which layer to choose by toggling its name on the checkbox list in the upper right corner of the map. As before, the complete example code used in this tutorial can be found in the [index.html](./index.html) file in this folder. Opening it in a browser should render something like the following image (please note the checkboxes in the upper right corner of the page):
 
 ![Toggling layers on a MapLibre map](./tutorial_4_2.png)
 
-## A Vue.js component to dynamically display map layers using checkboxes
+## A Vue.js Component to Dynamically Display Map Layers Using Checkboxes
 As for previous tutorials we are going to illustrate how to achieve the same steps detailed above in a [Vue.js](https://vuejs.org) component via its [composition API](https://vuejs.org/guide/introduction.html#composition-api). The [reactivity](https://vuejs.org/guide/essentials/reactivity-fundamentals.html) nature of Vue components is actually particularly suited to the task of dynamically render layers. While the steps to achieve this are quite similar the HTML case, we will leverage Vue [``ref``](https://vuejs.org/guide/essentials/reactivity-fundamentals.html#ref) variable and [``watchers``](https://vuejs.org/guide/essentials/watchers.html) to monitor the state of the checkboxes and react to any changes.
 
 The complete component code is slightly longer and more complex than previous ones, and therefore we decided to avoid pasting it here. Instead, please find the complete, documented component in the [Map.vue](./Map.vue) file in this tutorial folder.

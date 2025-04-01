@@ -1,4 +1,4 @@
-# Use PMTiles for serverless rendering of Vector Data on a Map.
+# Use PMTiles for Serverless Rendering of Vector Data on a Map.
 This module explains how to display vector data on a map. We follow a serverless approach that hosts a PMTiles files on a AWS S3 storage platform and displays it in our web app that is based on MapLibre. PMTiles is a single-file archive format for pyramids of tiled data. Using HTTP Range Requests the reader can only fetch the relevant tile inside a PMTiles archive on-demand.
 
 ## Create PMTiles
@@ -8,12 +8,12 @@ We create a PMTiles archive based that contains Swiss ZIP codes. This [Jupyter N
 Once you’ve created your PMTiles file, simply upload it to your AWS S3 bucket (created in the [Getting Started](../README.md) module) by dragging and dropping the file.
 [Protomaps documentation](https://docs.protomaps.com/pmtiles/cloud-storage) provides similar resources on how to serve a PMTiles file via AWS S3. In addition, they provide [details](https://docs.protomaps.com/deploy/aws) on creating a CDN-cached ZXY API to boost performance when serving PMTiles.
 
-## Display a PMTiles file on a Base Map Using MapLibre
+## Display a PMTiles File on a Base Map Using MapLibre
 With the file uploaded to the AWS S3 bucket, we can proceed to visualize the data on the base map we have created in the [first tutorial](../1_simple-map//README.md) of this series. 
 
 As a refresher, in the the [first tutorial](../1_simple-map//README.md) we added a ``div`` element to our html page and linked a ``maplibregl.Map`` object to it. We will keep working with this object, adding a protocol to it that helps us in loading tiles from the file, and rendering data layers on top of the base map.
 
-### Load the pmtiles protocol
+### Load the PMTiles Protocol
 
 To be able to load our PMTile file, we first need to add the proper protocol to the ``map`` object. That is, we need to add the protocol ``pmtiles`` to the ``map`` object. This can be done by using the [``addProtocol()``](https://maplibre.org/maplibre-gl-js/docs/API/functions/addProtocol/) method of maplibregl, which takes as arguments a protocol type as ``string`` and a [AddProtocolAction()](https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/AddProtocolAction/) function, which is used to register the protocol handler (i.e., the function to use when trying to fetch a tile specified by the protocol). To center our map view around the data, once the protocol is loaded we can fetch the data center coordinates and maximum zoom level from the file header:
 
@@ -103,12 +103,12 @@ Once the data is loaded, we can proceed to bind the source and layers to our ``m
 </body>
 ```
 
-## Putting it all together
+## Putting it All Together
 That's it! Display tiled data from a PMTiles files is relatively straightforward and can be achieved in few simple steps. As before, the complete example code used in this tutorial can be found in the [index.html](./index.html) file in this folder. Opening it in a browser should render something like the following image:
 
 ![Displaying data from a PMTiles file on a Base Map Using MapLibre](./tutorial_2.png)
 
-## A Vue.js component to display a PMTiles file on a Base Map Using MapLibre
+## A Vue.js Component to Display a PMTiles File on a Base Map Using MapLibre
 Similarly to the [first tutorial](../1_simple-map/README.md), we have prepared a [Vue.js](https://vuejs.org) component that illustrates how to display data from a PMTiles file on a base-map. As done before, we are going to use Vue 3 and its [composition API](https://vuejs.org/guide/introduction.html#composition-api).
 
 The component code closely follows the steps detailed in the HTML case: we add the ``pmtiles`` protocol in the ``onMounted()`` [lifecycle hook](https://vuejs.org/api/composition-api-lifecycle#onmounted) of the component. We then link the protocol to the ``map`` object and finally we add a ``source`` and ``layers` to it.
