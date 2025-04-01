@@ -1,8 +1,8 @@
-# Use a Cloud Optimized GEOTIff (COG) file to display data on a Map
+# Use a Cloud Optimized GEOTIff (COG) File to Display Data on a Map
 
 WIP
 
-## Display a PMTiles file on a Base Map Using MapLibre
+## Display a PMTiles File on a Base Map Using MapLibre
 With the file uploaded to the AWS S3 bucket, we can proceed to visualize the data on the base map we have created in the [first tutorial](../1_simple-map//README.md) of this series. 
 
 One important note is that to correctly load the COG protocol we must load the correct MapLibre script in the Head of our HTML page:
@@ -16,7 +16,7 @@ One important note is that to correctly load the COG protocol we must load the c
 </head>
 ```
 
-### Load the COG protocol
+### Load the COG Protocol
 
 Similarly to the [PMTiles tutorial](../2_PMTiles-map/), the first step to load data from a COG file is to add the correct protocol to the ``map`` object in our HTML page. This, as before, can be done by using the [``addProtocol()``](https://maplibre.org/maplibre-gl-js/docs/API/functions/addProtocol/) method of maplibregl.
 
@@ -97,7 +97,7 @@ Maplibre has an excellent documentation. To find out more about raster sources f
 </body>
 ```
 
-## Putting it all together
+## Putting it All Together
 That's it! Display tiled data from a COG file is relatively straightforward and can be achieved in few simple steps. As before, the complete example code used in this tutorial can be found in the [index.html](./index.html) file in this folder. Opening it in a browser should render something like the following image:
 
 ![Displaying data from a COG file on a Base Map Using MapLibre](./tutorial_3_1.png)
@@ -106,89 +106,7 @@ Zooming on an edge between the base map and the COG data overlay, one can see th
 
 ![COG data overlayed on the base map](./tutorial_3_2.png)
 
-## Bonus: a Vue 3 component to display a PMTiles file on a Base Map Using MapLibre
-As for the [second tutorial](../2_PMTiles-map/) we are going to illustrate how to achieve the same steps detailed above in a Vue 3 component. Also for this case the steps for displaying data from a COG file on a base-map in your page/app using Vue 3 are the same as the ones detailed for the HTML case: add the ``cog`` protocol, link it to the ``map`` object in your component and finally add a ``source`` and ``layers` to it. Is that simple!
+## A Vue.js Component to Display a PMTiles File on a Base Map Using MapLibre
+As for the [second tutorial](../2_PMTiles-map/) we are going to illustrate how to achieve the same steps detailed above in a [Vue.js](https://vuejs.org/) component, using Vue 3 and its [composition API](https://vuejs.org/guide/introduction.html#composition-api). Also for this case the steps for displaying data from a COG file on a base-map using a Vue component are the same as the ones detailed for the HTML case: we add the ``cog`` protocol in the ``onMounted()`` [lifecycle hook ](https://vuejs.org/api/composition-api-lifecycle#onmounted) of the component. We then link the protocol to the ``map`` object and we finally add a ``source`` and ``layers` to it.
 
-Below you find the complete code, which is also included in the [Map.vue](./Map.vue) file in this tutorial folder:
-
-```vue
-<template>
-  <v-container fluid>
-    <v-row>
-      <v-col cols="12" no-gutters>
-        <div id="map" class="map-container"></div>   
-      </v-col>
-    </v-row>
-  </v-container>
-</template>
-
-<script setup lang="ts">
-
-import { onMounted, ref } from "vue"
-import maplibregl from "maplibre-gl"
-import { cogProtocol } from '@geomatico/maplibre-cog-protocol'
-import "maplibre-gl/dist/maplibre-gl.css"
-
-// we declare the maplibregl.Map object here, as in more complex components
-// you may want to access the objects from other method
-// than the onMounted
-const mapGl = ref<maplibregl.Map|null>(null);
-
-onMounted(async () => {
-
-  // add the pmtiles protocol
-  maplibregl.addProtocol('cog', cogProtocol)
-
-  // create the map object, bind it to the 'map' div in the template
-  mapGl.value = new maplibregl.Map({
-    container: "map",
-    style: "https://geovizbucket.s3.us-west-2.amazonaws.com/osm_basempa_style.json"
-  })
-
-  // add controls
-  mapGl.value?.addControl(new maplibregl.NavigationControl(), "top-right")
-
-  // zoom center the map
-  mapGl.value?.setZoom(12)
-  mapGl.value?.setCenter([8.542810246023732, 47.371741515957304])
-
-  // add sources and layers
-  addCogSourceAndLayer()
-})
-
-function addCogSourceAndLayer()
-{
-  // add source
-  const sourceId = 'imageSource'
-  mapGl.value?.addSource(sourceId, {
-    type: 'raster',
-    url: 'cog://https://geovizbucket.s3.us-west-2.amazonaws.com/output_cog_small_jpeg.tif',
-    tileSize: 512,
-    minzoom: 5,
-    maxzoom: 20
-  });
-
-  // add layer
-  const layerId = 'imageLayer'
-  mapGl.value?.addLayer({
-    id: layerId,
-    source: sourceId,
-    type: 'raster',
-    paint: {
-      'raster-opacity': 0.7
-    }
-  });
-}
-</script>
-
-<style scoped>
-
-.map-container {
-  width: 100%;
-  height: 500px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-</style>
-```
+The complete and documented code for the component is listed in the [Map.vue](./Map.vue) file in this tutorial folder.
