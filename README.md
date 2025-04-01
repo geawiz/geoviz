@@ -4,7 +4,7 @@ Our tutorials emphasize a modern, serverless approach to web mapping. Rather tha
 - Store processed raster and vector data economically on cloud-based storage solutions (Amazon S3).
 - Utilize client-side rendering capabilities of [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js) for efficient, scalable, and cost-effective mapping.
 
-Most of the tutorials will have code examples in two different flavour: plain HTML, as well as [Vue 3](https://vuejs.org) components.Data preparation will be done in Python. Let's get started creating interactive, beautiful, and scalable web maps!
+Most of the tutorials will have code examples in two different flavour: plain HTML, as well as [Vue 3](https://vuejs.org) components. Data preparation will be done in Python. Let's get started creating interactive, beautiful, and scalable web maps!
 
 ## Tutorial Outline
 This repo provides a practical, hands-on approach to display maps on the Web. We will cover all the steps involved in displaying data localized on maps, in an incremental fashion. 
