@@ -140,7 +140,7 @@ To control the visibility we are going to add a list of checkboxes to the map. A
 </div>
 ```
 
-Back to our example, first we are going to declare the layers names outside of the ``map.on('load')`` callback, as we will reuse those variables later to setup the checkboxes. We are then going to add the checkboxes to our map in the ``map.on('idle')`` callback. In order to create exactly one checkbox per layer, we iterate over all the layers added to the map, and for each we add an ``input`` and ``label`` element. To link it to the actual layer, we assign the layer name to the ``input`` id, as this will be useful later when interacting with the element. It is important to notice that the ``map.on('load')`` callback is executed each time the map is done rendering, e.g., when zooming or panning. Therefore, we also need to make sure that our checkboxes are added only once (and ideally on the first call to the callback); this can be easily achieved by making sure that ``input`` with a given id is only added once to the page:
+Back to our example, first we are going to declare the layers names outside of the ``map.on('load')`` callback, as we will reuse those variables later to setup the checkboxes. We are then going to add the checkboxes to our map in the ``map.on('idle')`` callback. In order to create exactly one checkbox per layer, we iterate over all the layers added to the map, and for each we add an ``input`` and ``label`` element. To link it to the actual layer, we assign the layer name to the ``input`` id, as this will be useful later when interacting with the element. It is important to notice that the ``map.on('load')`` callback is executed each time the map is done rendering, e.g., when zooming or panning. Therefore, we also need to make sure that our checkboxes are added only once (and ideally on the first call to the callback); this can be easily achieved by making sure that ``input`` with a given id is only added once to the page. The checkboxes are added to the ``checkboxes`` element on the page: this is a simple ``div`` element in the top-right corner of the page that acts as a container for all the ``input`` elements. Please refer to the [index.html](./index.html) file in this folder for further details on how style and place on the page the ``checkboxes`` element via its CSS properties.
 
 ```html
 <body>
@@ -256,7 +256,7 @@ Finally, we need to setup the interaction between the checkboxes and the layers 
 ```
 
 ## Putting it all together
-That's it! You can now choose which layer to choose by toggling its name on the checkbox list in the upper right corner of the map. As before, the complete example code used in this tutorial can be found in the [index.html](./index.html) file in this folder. Opening it in a browser should render something like the following image:
+That's it! You can now choose which layer to choose by toggling its name on the checkbox list in the upper right corner of the map. As before, the complete example code used in this tutorial can be found in the [index.html](./index.html) file in this folder. Opening it in a browser should render something like the following image (please note the checkboxes in the upper right corner of the page):
 
 ![Toggling layers on a MapLibre map](./tutorial_4_2.png)
 
