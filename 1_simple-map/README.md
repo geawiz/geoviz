@@ -89,61 +89,9 @@ At this point it should be clear that displaying a base-map with MapLibre is rat
 
 ![Displaying a Base Map Using MapLibre](./tutorial_1.png)
 
-## Bonus: a Vue 3 component to display a base-map using MapLibre
-While is important to understand the basics of adding a MapLibre base-map to a HTML page, a perhaps more modern way of achieving the same is through a Vue 3 component. This can also serve as the blue-print for other modern reactive UI frameworks.
+## A Vue.js component to display a base-map using MapLibre
+While it is important to understand the basics of adding a MapLibre base-map to a HTML page, a perhaps more modern way of achieving the same is through a [Vue.js](https://vuejs.org) component. Specifically, we are going to use Vue 3 and its [composition API](https://vuejs.org/guide/introduction.html#composition-api), which can then also be used as the blue-print for other modern reactive UI frameworks.
 
-The steps for displaying a base-map in your page/app using Vue 3 are identical to the ones detailed for the HTML case: we declare and tag a ``div`` in the body of the page, we bind it to a [``maplibregl.Map``](https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/) object, and we finally add mouse controls over the rendered map.
+The steps for displaying a base-map using Vue component are identical to the ones detailed for the HTML case. First we declare and tag a ``div`` in the body of the page. We then bind it to a [``maplibregl.Map``](https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/) object in the ``onMounted()`` [lifecycle hook](https://vuejs.org/api/composition-api-lifecycle#onmounted) of the component, and we then finally add mouse controls over the rendered map.
 
-Below you find the complete code, which is also included in the [Map.vue](./Map.vue) file in this tutorial folder:
-
-```vue
-<template>
-  <v-container fluid>
-    <v-row>
-      <v-col cols="12" no-gutters>
-        <div id="map" class="map-container"></div>   
-      </v-col>
-    </v-row>
-  </v-container>
-</template>
-
-<script setup lang="ts">
-
-import { onMounted, ref } from 'vue'
-import maplibregl from 'maplibre-gl'
-import 'maplibre-gl/dist/maplibre-gl.css'
-
-// we declare the maplibregl.Map object here, as in more complex components
-// you may want to access the objects from other method
-// than the onMounted
-const mapGl = ref<maplibregl.Map|null>(null);
-
-onMounted(async () => {
-
-  // create the map object, bind it to the 'map' div in the template
-  mapGl.value = new maplibregl.Map({
-    container: 'map',
-    style: 'https://geovizbucket.s3.us-west-2.amazonaws.com/osm_basempa_style.json'
-  })
-
-  // add controls
-  mapGl.value?.addControl(new maplibregl.NavigationControl(), 'bottom-right')
-
-  // zoom center the map
-  mapGl.value?.setZoom(14)
-  mapGl.value?.setCenter([8.542810246023732, 47.371741515957304])
-})
-
-</script>
-
-<style scoped>
-
-.map-container {
-  width: 100%;
-  height: 500px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-</style>
-```
+The complete and commented code for the component is in the [Map.vue](./Map.vue) file in this tutorial folder.

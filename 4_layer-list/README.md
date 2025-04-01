@@ -260,7 +260,7 @@ That's it! You can now choose which layer to choose by toggling its name on the 
 
 ![Toggling layers on a MapLibre map](./tutorial_4_2.png)
 
-## Bonus: a Vue 3 component to dynamically display map layers using checkboxes
-As for previous tutorials we are going to illustrate how to achieve the same steps detailed above in a Vue 3 component. The [reactivity](https://vuejs.org/guide/essentials/reactivity-fundamentals.html) nature of Vue components is actually particularly suited to the task of dynamically render layers. While the steps to achieve this are quite similar the HTML case, we will leverage Vue [``ref``](https://vuejs.org/guide/essentials/reactivity-fundamentals.html#ref) variable and [``watchers``](https://vuejs.org/guide/essentials/watchers.html) to monitor the state of the checkboxes and react to any changes.
+## A Vue.js component to dynamically display map layers using checkboxes
+As for previous tutorials we are going to illustrate how to achieve the same steps detailed above in a [Vue.js](https://vuejs.org) component via its [composition API](https://vuejs.org/guide/introduction.html#composition-api). The [reactivity](https://vuejs.org/guide/essentials/reactivity-fundamentals.html) nature of Vue components is actually particularly suited to the task of dynamically render layers. While the steps to achieve this are quite similar the HTML case, we will leverage Vue [``ref``](https://vuejs.org/guide/essentials/reactivity-fundamentals.html#ref) variable and [``watchers``](https://vuejs.org/guide/essentials/watchers.html) to monitor the state of the checkboxes and react to any changes.
 
-As this code example is a little longer and more complex than previous ones, we decided to avoid pasting it here. Instead, please find the complete example in the [Map.vue](./Map.vue) file in this tutorial folder:
+The complete component code is slightly longer and more complex than previous ones, and therefore we decided to avoid pasting it here. Instead, please find the complete, documented component in the [Map.vue](./Map.vue) file in this tutorial folder.
