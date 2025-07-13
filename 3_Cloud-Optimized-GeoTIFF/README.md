@@ -1,9 +1,16 @@
-# Use a Cloud Optimized GEOTIff (COG) File to Display Data on a Map
+# Use a Cloud Optimized GeoTIFF (COG) File to Display Data on a Map
 
-WIP
+This tutorial demonstrates how to display raster data on a map. We create and later visualize a Cloud Optimized GeoTIFFs (COGs). 
+A COG is a regular GeoTIFF file with an internal organization that enables more efficient workflows on the cloud. 
 
-## Display a PMTiles File on a Base Map Using MapLibre
-With the file uploaded to the AWS S3 bucket, we can proceed to visualize the data on the base map we have created in the [first tutorial](../1_simple-map//README.md) of this series. 
+## Create COG with Jupyter Notebook
+This tutorial includes a Jupyter notebook ([prepare_cog.ipynb](./prepare_cog.ipynb)) that processes high-resolution (10cm) aerial photographs of Zurich area and creates a web-optimized COG file suitable for display in MapLibre.
+
+## Upload COG to AWS S3
+Once you’ve created your PMTiles file, simply upload it to your AWS S3 bucket (created in the [Getting Started](../README.md) module) by dragging and dropping the file.
+
+## Display a COG File on a Base Map Using MapLibre
+With the COG file uploaded to AWS S3, we can proceed to visualize the data on the base map we have created in the [first tutorial](../1_simple-map//README.md) of this series. 
 
 One important note is that to correctly load the COG protocol we must load the correct MapLibre script in the Head of our HTML page:
 
