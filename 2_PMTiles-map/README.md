@@ -152,7 +152,8 @@ const mapGl = ref<maplibregl.Map|null>(null);
 onMounted(async () => {
 
   // add the pmtiles protocol
-  var p = addPMTilesProtocol()
+  const PMTILES_URL = "https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles"
+  var p = addPMTilesProtocol(PMTILES_URL)
 
   // create the map object, bind it to the 'map' div in the template
   mapGl.value = new maplibregl.Map({
@@ -169,28 +170,27 @@ onMounted(async () => {
   mapGl.value?.setCenter([header.centerLon, header.centerLat])
 
   // add sources and layers
-  addPmTilesSourceAndLayer()
+  addPmTilesSourceAndLayer(PMTILES_URL)
 })
 
-function addPMTilesProtocol()
+function addPMTilesProtocol(pmtiles_url: string)
 {
   // create a protocol and a source(s) to it
-  const protocol = new Protocol()
+  const protocol = new Protocol(pmtiles_url: string)
   // add PM Tiles protocol
   maplibregl.addProtocol("pmtiles", protocol.tile)
-  const PMTILES_URL = "https://geovizbucket.s3.us-west-2.amazonaws.com/swiss_gemeinden.pmtiles"
-  const p = new PMTiles(PMTILES_URL)
+  const p = new PMTiles(pmtiles_url)
   protocol.add(p)
   return p
 }
 
-function addPmTilesSourceAndLayer()
+function addPmTilesSourceAndLayer(pmtiles_url: string)
 {
   // add source
   const sourceId = "swiss_gemeinden"
   mapGl.value?.addSource(sourceId, {
     type: "vector",
-    url: `pmtiles://${PMTILES_URL}`
+    url: `pmtiles://${pmtiles_url}`
   });
 
   // add layer
