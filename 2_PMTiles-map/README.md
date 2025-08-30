@@ -13,6 +13,17 @@ With the file uploaded to the AWS S3 bucket, we can proceed to visualize the dat
 
 As a refresher, in the the [first tutorial](../1_simple-map//README.md) we added a ``div`` element to our html page and linked a ``maplibregl.Map`` object to it. We will keep working with this object, adding a protocol to it that helps us in loading tiles from the file, and rendering data layers on top of the base map.
 
+One important note, is that to correctly load the PMTiles protocol we must load the correct MapLibre script in the Head of our HTML page:
+
+```html
+<head>
+  <title>GeoViz: Displaying data from a PMTiles file on a Base Map Using MapLibre</title>
+  ...
+  <script src="https://unpkg.com/pmtiles@3.2.0/dist/pmtiles.js"></script>
+  ...
+</head>
+```
+
 ### Load the pmtiles protocol
 
 To be able to load our PMTile file, we first need to add the proper protocol to the ``map`` object. That is, we need to add the protocol ``pmtiles`` to the ``map`` object. This can be done by using the [``addProtocol()``](https://maplibre.org/maplibre-gl-js/docs/API/functions/addProtocol/) method of maplibregl, which takes as arguments a protocol type as ``string`` and a [AddProtocolAction()](https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/AddProtocolAction/) function, which is used to register the protocol handler (i.e., the function to use when trying to fetch a tile specified by the protocol). To center our map view around the data, once the protocol is loaded we can fetch the data center coordinates and maximum zoom level from the file header:
@@ -51,6 +62,8 @@ To be able to load our PMTile file, we first need to add the proper protocol to 
 
 ### Add PM Tiles Source and Layers
 Once the data is loaded, we can proceed to bind the source and layers to our ``map`` which are contained in the PMTiles file. To do so, we use the [``addSource()``](https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/#addsource) and [``addLayer()``](https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/#addlayer) methods of the ``map`` object. While setting up source and layers, it is important to carefully match the id used for the ``source`` with the ``id`` key of each ``layer`` (this example has only one layer). The same should be done for the ``source`` and ``source-layer`` key of each ``layer``. To make sure the base map is loaded _before_ the extra sources and layers are rendered on it, we add the source and layers in the ``onload``callback of the ``maplibregl.Map`` object.
+
+Maplibre has an excellent documentation. To find out more about vector sources for COG files, please refer to the ``vector`` section of the [Sources documentation](https://maplibre.org/maplibre-style-spec/sources/#vector). Similarly, to find out more about vector Layers and how to style them (e.g., change the fill color and opacity of the rendered layer or add more rendering options to the layer ``paint`` object) please refer to the [Layers documentation](https://maplibre.org/maplibre-style-spec/layers/).
 
 ```html
 <body>

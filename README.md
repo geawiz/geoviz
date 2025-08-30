@@ -10,7 +10,7 @@ This repo provides a practical, hands-on approach to display maps on the Web. We
 | [Getting Started](./0_getting-started) | Set up your dev environment for the main tutorials | ✅ | 
 | [Display a Base Map](./1_simple-map) | Learn how to use [maplibre-gl-js](https://github.com/maplibre/maplibre-gl-js) to display a base map| ✅ |
 | [Working with PMTiles files](./2_PMTiles-map) | Learn how to create `PMTiles` files from vector data and display them on a map using the `pmtiles` protocol | ✅ |
-| [Working with Cloud Optimized GEOTiff files](./3_Cloud-Optimized-GeoTIFF) | Learn how to access `COG` files to display data on a base map | 🚧 WIP |
+| [Working with Cloud Optimized GEOTiff files](./3_Cloud-Optimized-GeoTIFF) | Learn how to create Cloud Optimized GeoTIFFs and display them on a map using the `maplibre-cog` protocol | ✅ |
 | [Dynamically Render Layers](./4_layer-list) | Create a list of checkboxes that dynamically render the available layers on a base map | ✅ | 
 
 ## Prerequisites
