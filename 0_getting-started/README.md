@@ -2,7 +2,7 @@
 The following steps have been tested on a macOS system running Sequoia 15.1.1. These instructions should also work on a recent Debian systems. For Windows-based systems some additional steps may be required to install the `tippecanoe` utilities.
 
 ## Setting up AWS to Serve Spatial Data 
-We use [AWS S3](https://aws.amazon.com/de/s3/) cloud storage to store our spatial datasets such as PMTiles or Cloud Optimized GeoTIFFs.. Before we upload data to our storage buckets in modules [Working with PMTiles files](../2_PMTiles-map) and [Working with Cloud Optimized GEOTiff files](../3_Cloud-Optimized-GeoTIFF), we need to follow below steps to create a S3 storage bucket.
+We use [AWS S3](https://aws.amazon.com/de/s3/) cloud storage to store our spatial datasets such as PMTiles or Cloud Optimized GeoTIFFs. Before we upload data to our storage buckets in modules [Working with PMTiles files](../2_PMTiles-map) and [Working with Cloud Optimized GEOTiff files](../3_Cloud-Optimized-GeoTIFF), we need to follow below steps to create a S3 storage bucket.
 1. Sign up for a free AWS account [here](https://signin.aws.amazon.com/signup?request_type=register).
 2. Go to the S3 service by typing `S3` into the search bar at the top of you AWS console.
 3. Before creating a new storage bucket, you can select the region in which you want to store your data. Use the region dropdown to the right of the search bar.
@@ -51,10 +51,14 @@ Warning: By defining this policy anybody can read all files in your bucket `<nam
 
 Alternative object storage such as e.g. [Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs) offer similar capabilities.
 
-## Setting up Python Environments for data processing
-We use Jupyter Notebooks in those two tutorials [Working with PMTiles files](../2_PMTiles-map), [Working with Cloud Optimized GEOTiff files](../3_Cloud-Optimized-GeoTIFF). We suggest using [conda](https://docs.conda.io/en/latest/) to manage your environment. Create a new environment and activate it:
+## Using Google Colab for data processing
+Two tutorials [Working with PMTiles files](../2_PMTiles-map), [Working with Cloud Optimized GEOTiff files](../3_Cloud-Optimized-GeoTIFF) require Jupyter Notebooks for data processing. We setup our Jupyter Notebooks such that they can be directly run out of [Google Colab](https://colab.research.google.com). Simply visit [Google Colab](https://colab.research.google.com) log into your account and open a notebook from this github repository by going to `File`, `Open Notebook`. A dialogue window opens where you select `GitHub` on the left. Now you can simply paste the URL of a notebook of this repository, e.g. https://github.com/geawiz/geoviz/blob/main/2_PMTiles-map/prepare_vector_tiles.ipynb.  
+
+
+## Using a local environment for data processing
+We suggest using [conda](https://docs.conda.io/en/latest/) to manage your environment. Create a new environment and activate it:
 ```
-$ conda create -n geoviz python=3.9
+$ conda create -n geoviz python
 $ conda activate geoviz
 ``` 
 Install [geopandas](https://geopandas.org/en/stable/index.html) and [rasterio](https://rasterio.readthedocs.io/en/stable/index.html).
